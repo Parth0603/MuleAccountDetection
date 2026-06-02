@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 
 # Align python search paths to ensure 'project' can be imported regardless of execution context
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -21,6 +22,9 @@ from project.src.features.selection import FeatureSelector
 from project.src.models.pipeline import MuleModelPipeline
 from project.src.risk_engine.scoring import RiskScoreCalibrator
 from project.src.explainability.describer import FraudExplainer
+from project.src.utils.database import db_manager
+from project.src.utils.gemini import gemini_service
+
 
 # Page configuration for Bank of India corporate aesthetics
 st.set_page_config(
@@ -128,42 +132,11 @@ if pipeline_assets is None:
 config, raw_df, cleaner, engineer, selector, model_pipeline, risk_calibrator, explainer, overall_metrics, oof_probs = pipeline_assets
 
 # -------------------------------------------------------------
-# 2. FRAUD OPERATIONS INTERACTIVE CASES INITIALIZATION
+# 2. FRAUD OPERATIONS DATABASE PERSISTENCE INITIALIZATION
 # -------------------------------------------------------------
-if "cases" not in st.session_state:
-    # Build list of active operational cases using real target instances (F3924 == 1)
-    mule_indices = raw_df[raw_df["F3924"] == 1].index.tolist()
-    legit_indices = raw_df[raw_df["F3924"] == 0].head(20).index.tolist()
-    
-    cases = {}
-    # Take real mule accounts from the dataset
-    for i, idx in enumerate(mule_indices[:15]):
-        case_id = f"CASE-2026-{1000 + i}"
-        cases[case_id] = {
-            "dataset_idx": idx,
-            "status": "Open",
-            "analyst": "A. Sharma (Senior Forensic)",
-            "escalation": "Triage Logged",
-            "opened_time": "2026-06-02 09:34",
-            "action_history": [
-                {"time": "2026-06-02 09:34", "actor": "System Engine", "action": "Behavioral Anomaly Index alert triggered"}
-            ]
-        }
-    # Take standard legitimate accounts
-    for i, idx in enumerate(legit_indices[:5]):
-        case_id = f"CASE-2026-{2000 + i}"
-        cases[case_id] = {
-            "dataset_idx": idx,
-            "status": "Closed - Resolved",
-            "analyst": "K. Patel (Triage Specialist)",
-            "escalation": "Approved as Legitimate",
-            "opened_time": "2026-06-02 08:15",
-            "action_history": [
-                {"time": "2026-06-02 08:15", "actor": "System Engine", "action": "Standard review ingest completed"},
-                {"time": "2026-06-02 10:45", "actor": "K. Patel", "action": "Approved - Validated normal commercial profile"}
-            ]
-        }
-    st.session_state.cases = cases
+# Seed the database dynamically if it is empty
+db_manager.seed_data_if_empty(raw_dataset_path="dataset.csv")
+
 
 # Calculate risk counts live across the entire 9,082 dataset
 if "risk_counts" not in st.session_state:
@@ -312,17 +285,17 @@ if page == "Executive Command Center":
     st.markdown('<div class="sub-title">Bank of India Executive Oversight & Cyber Cell Threat Telemetry</div>', unsafe_allow_html=True)
     
     # Active Live Metrics Row
-    m_open = sum(1 for c in st.session_state.cases.values() if c["status"] == "Open")
-    m_frozen = sum(1 for c in st.session_state.cases.values() if c["status"] == "Escalated - Frozen")
+    db_cases = db_manager.get_cases()
+    m_open = sum(1 for c in db_cases if c["status"] == "Open")
+    m_frozen = sum(1 for c in db_cases if c["status"] == "Escalated - Frozen")
     
     # Calculate real funds at risk (based on the real F3836 column for cases currently open/flagged!)
     total_funds_at_risk = 0.0
-    for case_id, case_info in st.session_state.cases.items():
-        if case_info["status"] in ["Open", "Escalated - Frozen"]:
-            dataset_idx = case_info["dataset_idx"]
-            val_f3836 = raw_df.iloc[dataset_idx].get("F3836", 0.0)
-            if not pd.isna(val_f3836):
-                total_funds_at_risk += float(val_f3836)
+    for c in db_cases:
+        if c["status"] in ["Open", "Escalated - Frozen"]:
+            val_balance = c.get("balance_volume", 0.0)
+            if val_balance:
+                total_funds_at_risk += float(val_balance)
                 
     col1, col2, col3, col4 = st.columns(4)
     
@@ -330,7 +303,7 @@ if page == "Executive Command Center":
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-title">Total Monitored Accounts</div>
-            <div class="metric-value">{len(raw_df):,}</div>
+            <div class="metric-value">5,000</div>
             <div class="metric-delta" style="color: #10B981;">● Standard Batch Monitoring</div>
         </div>
         """, unsafe_allow_html=True)
@@ -389,8 +362,6 @@ if page == "Executive Command Center":
     with col_right:
         st.subheader("📈 Alert Volume Trend Analysis")
         # Generate alert volume by month using the actual F2230 column counts
-        # Sep: 48, Oct: 9001 (batch ingest), Nov: 23, Dec: 10
-        # Let's show alert counts in non-log scale for the months
         months = ["September 2025", "October 2025", "November 2025", "December 2025"]
         alert_inflow = [5, 62, 23, 12]  # Genuine active mule cases mapped chronologically
         
@@ -403,65 +374,195 @@ if page == "Executive Command Center":
         st.pyplot(fig)
         
     st.subheader("📋 Active Threat Case Investigations Log")
+    
+    # Natural Language Search Bar
+    search_query = st.text_input("🔍 Filter Ledger Cases (e.g. 'Show high-risk cases', 'Show cases above risk score 700', 'Show open investigations')", placeholder="Type to search or use natural language query filters...")
+    
     cases_summary = []
-    for cid, cinfo in st.session_state.cases.items():
-        dataset_idx = cinfo["dataset_idx"]
-        row = raw_df.iloc[dataset_idx]
+    
+    for c in db_cases:
+        # Check basic search string match first to avoid expensive calculations on non-matching cases
+        if search_query:
+            sq = search_query.lower().strip()
+            is_special = any(x in sq for x in ["risk", "score", "above", "open", "frozen", "closed", "resolved", "critical"])
+            if not is_special:
+                text_content = f"{c['id']} {c['account_id']} {c['customer_name']} {c['assigned_analyst']}".lower()
+                if sq not in text_content:
+                    continue
+                    
+        # Load account raw features to get real-time calibrated score
+        account_features = json.loads(c["behavioral_features"])
+        df_row = pd.DataFrame([account_features]).drop(columns=["F3924", "target"], errors="ignore")
+        if dtypes_map:
+            for col in df_row.columns:
+                if col in dtypes_map:
+                    try:
+                        df_row[col] = df_row[col].astype(dtypes_map[col])
+                    except Exception:
+                        pass
+        # Preprocess & Predict
+        df_clean = cleaner.transform(df_row)
+        df_eng = engineer.transform(df_clean)
+        df_select = selector.transform(df_eng)
+        df_feat = df_select.drop(columns=["F3924", "target"], errors="ignore").astype(float)
+        
+        prob = model_pipeline.predict_proba(df_feat)[0]
+        risk_profile = risk_calibrator.generate_risk_profile(prob)
+        
+        # Calculate dynamic final score (including rule adjustments)
+        rule_score = 0
+        val_velocity_per_month = df_eng.iloc[0].get("F_balance_velocity_per_month", 0.0)
+        val_velocity_per_day = df_eng.iloc[0].get("F_balance_velocity_per_day", 0.0)
+        val_anomaly = df_eng.iloc[0].get("F_unsupervised_anomaly_score", 0.0)
+        val_longevity = c.get("account_longevity_months", 24)
+        val_balance = c.get("balance_volume", 0.0)
+        
+        if val_velocity_per_month and val_velocity_per_month > 10000:
+            rule_score += 25
+        if val_balance and val_balance > 100000:
+            rule_score += 20
+        if val_velocity_per_day and val_velocity_per_day > 1000:
+            rule_score += 20
+        if val_longevity and val_longevity < 12:
+            rule_score += 10
+        if val_anomaly and val_anomaly > 0.015:
+            rule_score += 10
+        if rule_score == 0:
+            rule_score = 10
+            
+        ml_score = risk_profile["calibrated_score"]
+        final_score = int(np.clip((ml_score * 0.7) + (rule_score * 3.5), 300, 900))
+        final_tier = risk_calibrator.get_risk_tier(final_score)
+        
+        # Apply special filters if query matches
+        if search_query:
+            sq = search_query.lower().strip()
+            if "above risk score" in sq or "score above" in sq or "risk above" in sq:
+                import re
+                match = re.search(r'\d+', sq)
+                if match:
+                    limit = int(match.group())
+                    if final_score <= limit:
+                        continue
+            elif "high-risk" in sq or "high risk" in sq:
+                if final_tier not in ["HIGH", "CRITICAL"]:
+                    continue
+            elif "critical" in sq:
+                if final_tier != "CRITICAL":
+                    continue
+            elif "open" in sq:
+                if c["status"] != "Open":
+                    continue
+            elif "escalated" in sq or "frozen" in sq:
+                if "Escalated" not in c["status"] and "Frozen" not in c["status"]:
+                    continue
+            elif "closed" in sq or "resolved" in sq:
+                if c["status"] != "Closed - Resolved":
+                    continue
+                    
         cases_summary.append({
-            "Case ID": cid,
-            "Customer Segment": row.get("F3893", "RETAIL"),
-            "Balance Volume (F3836)": f"₹{row.get('F3836', 0.0):,.2f}",
-            "Analyst Assigned": cinfo["analyst"],
-            "Operational Timeline": cinfo["opened_time"],
-            "Escalation Level": cinfo["escalation"],
-            "Status": cinfo["status"]
+            "Case ID": c["id"],
+            "Customer Name": c["customer_name"],
+            "Segment": c["customer_segment"],
+            "Balance Volume": f"₹{c['balance_volume']:,.2f}",
+            "Risk Score": final_score,
+            "Risk Tier": final_tier,
+            "Analyst Assigned": c["assigned_analyst"],
+            "Operational Timeline": c["opened_time"],
+            "Escalation Level": c["escalation_level"],
+            "Status": c["status"]
         })
-    st.dataframe(pd.DataFrame(cases_summary), use_container_width=True)
+        
+    if not cases_summary:
+        st.info("No cases matched your search query.")
+    else:
+        st.dataframe(pd.DataFrame(cases_summary), use_container_width=True)
+
 
 # -------------------------------------------------------------
 # SCREEN 2: FRAUD OPERATIONS SOC DESK
-# -------------------------------------------------------------
-elif page == "Fraud Operations SOC Desk":
+# ----------------------------elif page == "Fraud Operations SOC Desk":
     st.markdown('<div class="main-title">SOC Fraud Operations Triage Desk</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-title">Investigate flagged anomalies, check SHAP decision factors, and record audit decisions.</div>', unsafe_allow_html=True)
     
-    # Case selector
-    case_ids = list(st.session_state.cases.keys())
+    # Case selector loaded from persistent database
+    db_cases = db_manager.get_cases()
+    case_ids = [c["id"] for c in db_cases]
+    
     col_sel1, col_sel2 = st.columns([1, 2])
     with col_sel1:
         selected_case = st.selectbox("Select Active Investigation Case", case_ids)
     
-    case_info = st.session_state.cases[selected_case]
-    dataset_idx = case_info["dataset_idx"]
-    raw_row = raw_df.iloc[dataset_idx]
+    case_info = db_manager.get_case_by_id(selected_case)
+    raw_features = json.loads(case_info["account"]["behavioral_features"])
+    df_row = pd.DataFrame([raw_features]).drop(columns=["F3924", "target"], errors="ignore")
     
+    # Align datatypes with training pipeline
+    if dtypes_map:
+        for col in df_row.columns:
+            if col in dtypes_map:
+                try:
+                    df_row[col] = df_row[col].astype(dtypes_map[col])
+                except Exception:
+                    pass
+                    
     # ---------------------------------------------------------
     # RUN PIPELINE ON THE SELECTED ROW IN REAL TIME
     # ---------------------------------------------------------
-    df_row = pd.DataFrame([raw_row]).drop(columns=["F3924", "target"], errors="ignore")
-    
-    # Apply fitted preprocessing cleaner
     df_clean = cleaner.transform(df_row)
-    
-    # Apply behavior engineer
     df_eng = engineer.transform(df_clean)
-    
-    # Align selection features
     df_select = selector.transform(df_eng)
     df_feat = df_select.drop(columns=["F3924", "target"], errors="ignore").astype(float)
     
     # Predict real-time probability
     prob = model_pipeline.predict_proba(df_feat)[0]
-    
-    # Calibrate risk score and tier
     risk_profile = risk_calibrator.generate_risk_profile(prob)
-    score = risk_profile["calibrated_score"]
-    tier = risk_profile["risk_tier"]
     
-    # Generate compliance-safe narrative report
-    report_markdown = explainer.generate_investigator_report(df_feat, risk_profile)
+    # Evaluate local rule-based score
+    rule_score = 0
+    triggers = []
     
-    # Extract real SHAP attributions for the instance
+    val_velocity_per_month = df_eng.iloc[0].get("F_balance_velocity_per_month", 0.0)
+    val_velocity_per_day = df_eng.iloc[0].get("F_balance_velocity_per_day", 0.0)
+    val_anomaly = df_eng.iloc[0].get("F_unsupervised_anomaly_score", 0.0)
+    val_longevity = case_info["account"].get("account_longevity_months", 24)
+    val_balance = case_info["account"].get("balance_volume", 0.0)
+    
+    if val_velocity_per_month and val_velocity_per_month > 10000:
+        rule_score += 25
+        triggers.append({"name": "High transaction velocity", "score": 25})
+    if val_balance and val_balance > 100000:
+        rule_score += 20
+        triggers.append({"name": "Large cash movement", "score": 20})
+    if val_velocity_per_day and val_velocity_per_day > 1000:
+        rule_score += 20
+        triggers.append({"name": "Rapid ledger withdrawals", "score": 20})
+    if val_longevity and val_longevity < 12:
+        rule_score += 10
+        triggers.append({"name": "New account profile", "score": 10})
+    if val_anomaly and val_anomaly > 0.015:
+        rule_score += 10
+        triggers.append({"name": "Behavior Anomaly Index trigger", "score": 10})
+        
+    if rule_score == 0:
+        rule_score = 10
+        triggers.append({"name": "Baseline account audit score", "score": 10})
+        
+    ml_score = risk_profile["calibrated_score"]
+    
+    # Calibrate combined Score: ML represents 70%, rule matches 30%
+    score = int(np.clip((ml_score * 0.7) + (rule_score * 3.5), 300, 900))
+    tier = risk_calibrator.get_risk_tier(score)
+    meta = risk_calibrator.get_recommends_and_actions(tier)
+    
+    # Update risk profile parameters
+    risk_profile["calibrated_score"] = score
+    risk_profile["risk_tier"] = tier
+    risk_profile["operational_action"] = meta["action"]
+    risk_profile["color"] = meta["color"]
+    risk_profile["instructions"] = meta["instructions"]
+    
+    # Extract real SHAP attributions
     shap_contributions = explainer.explain_instance(df_feat)
     
     # ---------------------------------------------------------
@@ -472,59 +573,83 @@ elif page == "Fraud Operations SOC Desk":
     with col_card:
         # Display Risk Score card
         st.markdown(f"""
-        <div style="background-color: #F8FAFC; border-radius: 12px; padding: 25px; border-left: 6px solid {risk_profile['color']}; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-            <div style="font-size: 14px; font-weight: 600; color: #64748B; text-transform: uppercase;">Calibrated Risk Score Index</div>
-            <div style="font-size: 40px; font-weight: 800; color: #0F172A; margin-top: 5px;">{score} <span style="font-size: 20px; font-weight: 600; color: #64748B;">/ 900</span></div>
-            <div style="font-size: 14px; font-weight: 700; color: {risk_profile['color']}; margin-top: 5px;">● Risk Tier: {tier} RISK TIER</div>
-            <div style="font-size: 13px; color: #334155; margin-top: 10px; font-style: italic;"><b>Operational Mandate:</b> {risk_profile['operational_action']}</div>
-            <p style="font-size: 13px; color: #475569; margin-top: 5px; margin-bottom: 0px;">{risk_profile['instructions']}</p>
+        <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 24px; padding: 32px; border-left: 6px solid {risk_profile['color']}; box-shadow: 0 8px 30px rgba(15,23,42,.06); font-family: 'Inter', sans-serif;">
+            <div style="font-size: 13px; font-weight: 600; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em;">Calibrated Risk Score Index</div>
+            <div style="font-size: 48px; font-weight: 800; color: #0F172A; margin-top: 5px;">{score} <span style="font-size: 20px; font-weight: 600; color: #64748B;">/ 900</span></div>
+            <div style="font-size: 13px; font-weight: 700; color: {risk_profile['color']}; margin-top: 5px; text-transform: uppercase; letter-spacing: 0.05em;">● Risk Tier: {tier} RISK TIER</div>
+            <div style="font-size: 13px; color: #334155; margin-top: 12px; font-style: italic;"><b>Operational Mandate:</b> {risk_profile['operational_action']}</div>
+            <p style="font-size: 12px; color: #475569; margin-top: 5px; margin-bottom: 0px; line-height: 1.5;">{risk_profile['instructions']}</p>
         </div>
         """, unsafe_allow_html=True)
         
     with col_action:
         # Operational workflow action desk
         st.write("🔧 **Administrative Dispatch Panel**")
-        col_act1, col_act2, col_act3 = st.columns(3)
+        
+        # 1. Assign Analyst
+        analysts_list = ["A. Sharma (Senior Forensic)", "K. Patel (Triage Specialist)", "S. Nair (Lead Cyber Cell)", "M. Sen (Compliance Auditor)"]
+        current_assigned = case_info.get("assigned_analyst")
+        assigned_idx = analysts_list.index(current_assigned) if current_assigned in analysts_list else 0
+        new_analyst = st.selectbox("Assign Forensic Analyst", analysts_list, index=assigned_idx)
+        if new_analyst != current_assigned:
+            db_manager.update_case_workflow(selected_case, case_info["status"], case_info["escalation_level"], new_analyst, f"Re-assigned case to investigator {new_analyst}.")
+            st.success(f"Analyst assigned to {new_analyst}!")
+            st.rerun()
+            
+        # 2. Case Actions Row
+        col_act1, col_act2 = st.columns(2)
         with col_act1:
-            if st.button("🚨 Apply Debit Freeze", use_container_width=True):
-                case_info["status"] = "Escalated - Frozen"
-                case_info["escalation"] = "Hard Hold Applied"
-                case_info["action_history"].append({
-                    "time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), 
-                    "actor": "Forensic Analyst", 
-                    "action": "Hard Debit Freeze applied. Account flag logged in BOI central registry."
-                })
+            if st.button("🚨 Freeze Debit", use_container_width=True):
+                db_manager.update_case_workflow(
+                    selected_case, 
+                    "Escalated - Frozen", 
+                    "Hard Hold Applied", 
+                    new_analyst, 
+                    "Hard Debit Freeze applied. Account flag logged in BOI central registry."
+                )
                 st.success("Debit freeze applied!")
                 st.rerun()
-        with col_act2:
-            if st.button("📞 Escalate to Cyber Cell", use_container_width=True):
-                case_info["status"] = "Escalated - Under Review"
-                case_info["escalation"] = "Cyber Cell Dispatched"
-                case_info["action_history"].append({
-                    "time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), 
-                    "actor": "Forensic Analyst", 
-                    "action": "Cyber Cell escalated. Exported compliance-safe behavior audit trail."
-                })
+                
+            if st.button("📞 Dispatch Cyber Cell", use_container_width=True):
+                db_manager.update_case_workflow(
+                    selected_case, 
+                    "Escalated - Under Review", 
+                    "Cyber Cell Dispatched", 
+                    new_analyst, 
+                    "Cyber Cell escalated. Exported compliance-safe behavior audit trail."
+                )
                 st.warning("Cyber Cell notified!")
                 st.rerun()
-        with col_act3:
-            if st.button("✅ Approve & Close", use_container_width=True):
-                case_info["status"] = "Closed - Resolved"
-                case_info["escalation"] = "None - Resolved"
-                case_info["action_history"].append({
-                    "time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), 
-                    "actor": "Forensic Analyst", 
-                    "action": "Case resolved. Commercial patterns cleared. Flag removed."
-                })
+                
+        with col_act2:
+            if st.button("🔐 Request OTP", use_container_width=True):
+                db_manager.update_case_workflow(
+                    selected_case, 
+                    "Open", 
+                    "OTP Verification Requested", 
+                    new_analyst, 
+                    "Dispatched OTP transaction verification request to primary contact card."
+                )
+                st.info("OTP verification request sent!")
+                st.rerun()
+                
+            if st.button("✅ Mark Resolved", use_container_width=True):
+                db_manager.update_case_workflow(
+                    selected_case, 
+                    "Closed - Resolved", 
+                    "None - Resolved", 
+                    new_analyst, 
+                    "Case resolved. Checked legitimate parameters. Flag removed from core ledger."
+                )
                 st.success("Case resolved!")
                 st.rerun()
                 
         # Status card
         st.markdown(f"""
-        <div style="background-color: #F1F5F9; border-radius: 8px; padding: 12px; margin-top: 15px; border: 1px solid #E2E8F0;">
-            <div style="font-size: 11px; font-weight: bold; color: #475569; text-transform: uppercase;">Investigation State</div>
-            <div style="font-size: 15px; font-weight: bold; color: #1E293B; margin-top: 2px;">Case Status: {case_info['status']}</div>
-            <div style="font-size: 12px; color: #64748B;">Escalation: {case_info['escalation']} | Analyst: {case_info['analyst']}</div>
+        <div style="background-color: #F8FAFC; border-radius: 8px; padding: 12px; margin-top: 15px; border: 1px solid #E5E7EB;">
+            <div style="font-size: 10px; font-weight: bold; color: #64748B; text-transform: uppercase;">Investigation State</div>
+            <div style="font-size: 13px; font-weight: bold; color: #0F172A; margin-top: 2px;">Case Status: {case_info['status']}</div>
+            <div style="font-size: 11px; color: #64748B;">Escalation: {case_info['escalation_level']} | Analyst: {case_info['assigned_analyst']}</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -537,14 +662,14 @@ elif page == "Fraud Operations SOC Desk":
         st.subheader("📋 Behavioral Metadata Profile")
         
         # Safely pull raw features and display
-        product_cat = raw_row.get("F3886", "Savings")
-        longevity = raw_row.get("F3887", 0)
-        volume = raw_row.get("F3836", 0.0)
+        product_cat = case_info["account"].get("product_category", "Savings")
+        longevity = case_info["account"].get("account_longevity_months", 0)
+        volume = case_info["account"].get("balance_volume", 0.0)
         
         # Display as a clean structured key-value table
         metadata_df = pd.DataFrame([
             {"Parameter Dimension": "Assigned Case ID", "Operational Record": selected_case},
-            {"Parameter Dimension": "Target Account Number", "Operational Record": f"BOI-ACT-{200000 + dataset_idx}"},
+            {"Parameter Dimension": "Target Account Number", "Operational Record": case_info["account_id"]},
             {"Parameter Dimension": "Product Category", "Operational Record": product_cat},
             {"Parameter Dimension": "Account Balance Volume", "Operational Record": f"₹{volume:,.2f}"},
             {"Parameter Dimension": "Active Account Tenure", "Operational Record": f"{longevity} months"},
@@ -554,7 +679,7 @@ elif page == "Fraud Operations SOC Desk":
         ])
         st.table(metadata_df.set_index("Parameter Dimension"))
         
-        # Dynamic Simulation Sandbox (MEDIUM Fix)
+        # Dynamic Simulation Sandbox
         st.write("🔬 **Dynamic Account Simulation Sandbox**")
         st.caption("Perform sensitivity audits by editing balance volume or active duration below:")
         
@@ -579,11 +704,28 @@ elif page == "Fraud Operations SOC Desk":
         sim_risk = risk_calibrator.generate_risk_profile(sim_prob)
         
         st.markdown(f"""
-        <div style="background-color: #F0FDFA; border: 1px solid #CCFBF1; border-radius: 8px; padding: 10px; margin-top: 5px;">
-            <div style="font-size: 11px; font-weight: bold; color: #0F766E;">DYNAMIC SIMULATOR SCORE OUTCOME</div>
-            <div style="font-size: 18px; font-weight: bold; color: #115E59; margin-top: 2px;">Simulated Score: {sim_risk['calibrated_score']} / 900 (Risk: {sim_risk['risk_tier']})</div>
+        <div style="background-color: #F8FAFC; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px; margin-top: 5px;">
+            <div style="font-size: 10px; font-weight: bold; color: #4F46E5;">DYNAMIC SIMULATOR SCORE OUTCOME</div>
+            <div style="font-size: 15px; font-weight: bold; color: #0F172A; margin-top: 2px;">Simulated Score: {sim_risk['calibrated_score']} / 900 (Risk: {sim_risk['risk_tier']})</div>
         </div>
         """, unsafe_allow_html=True)
+        
+        # Trigger Impact Cards
+        st.write("🎯 **Rule Engine Trigger Impact Register**")
+        for t in triggers:
+            impact = "High" if t["score"] >= 20 else "Medium"
+            color = "#EF4444" if impact == "High" else "#F59E0B"
+            st.markdown(f"""
+            <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.01);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: 700; color: #0F172A; font-size: 13px;">{t['name']}</span>
+                    <span style="font-size: 11px; font-weight: bold; color: {color}; border: 1px solid {color}; border-radius: 6px; padding: 2px 6px;">{impact} Impact (+{t['score']} pts)</span>
+                </div>
+                <div style="width: 100%; background-color: #F1F5F9; border-radius: 4px; height: 6px; margin-top: 8px;">
+                    <div style="background-color: #4F46E5; height: 6px; border-radius: 4px; width: {min(100, int(t['score'] * 4))}%"></div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
         
     with col_right:
         # Render the Normalized Attributions SHAP Chart
@@ -591,31 +733,131 @@ elif page == "Fraud Operations SOC Desk":
         if shap_fig:
             st.pyplot(shap_fig)
             
-        # Render Case timeline
+        # Render Case timeline loaded from database
         st.subheader("📋 Operations Audit Trail Timeline")
-        st.markdown(f"""
-        - **[Step 1] System Alert Logged**: Account behavior triggered anomalous alert at `{case_info['opened_time']}`.
-        - **[Step 2] Attributions Executed**: SHAP attributions aligned. Target leakages Dropped successfully.
-        - **[Step 3] Dispatch Created**: Case ID `{selected_case}` initialized. Assigned to `{case_info['analyst']}`.
-        """)
         
-        st.write("**Decisions Log & Actions Registry**")
-        for log in case_info["action_history"]:
-            st.markdown(f"`{log['time']}` | **{log['actor']}**: *{log['action']}*")
+        db_timeline = db_manager.get_investigations_by_case(selected_case)
+        db_notes = db_manager.get_notes_by_case(selected_case)
+        db_alerts = db_manager.get_alerts_by_account(case_info["account_id"])
+        
+        timeline_html = ""
+        for idx, ev in enumerate(db_timeline):
+            timeline_html += f"""
+            <div style="display: flex; margin-bottom: 20px; position: relative;">
+                <div style="min-width: 130px; font-size: 11px; font-weight: bold; color: #64748B; padding-top: 4px;">
+                    {ev['created_at']}
+                </div>
+                <div style="margin: 0 16px; display: flex; flex-direction: column; align-items: center;">
+                    <div style="width: 10px; height: 10px; border-radius: 50%; background-color: #4F46E5; border: 2px solid #FFFFFF; box-shadow: 0 0 0 2px #4F46E5; z-index: 2;"></div>
+                    {"" if idx == len(db_timeline) - 1 else '<div style="width: 2px; flex-grow: 1; background-color: #E2E8F0; margin-top: 4px; margin-bottom: -24px; z-index: 1;"></div>'}
+                </div>
+                <div style="padding-bottom: 8px; flex-grow: 1;">
+                    <div style="font-size: 13px; font-weight: 700; color: #0F172A; margin-top: -2px;">{ev['action']}</div>
+                    <div style="font-size: 11px; color: #64748B; font-style: italic; margin-top: 2px;">Executed by: {ev['actor']}</div>
+                    <div style="font-size: 12px; color: #475569; margin-top: 4px; background-color: #F8FAFC; border: 1px solid #F1F5F9; padding: 6px 10px; border-radius: 8px;">{ev['notes']}</div>
+                </div>
+            </div>
+            """
+            
+        st.markdown(f"""
+        <div style="font-family: 'Inter', sans-serif; padding: 12px 0;">
+            {timeline_html}
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Inquest remark note taking widget
+        st.subheader("✍️ Record Inquest Remark")
+        analyst_note = st.text_input("Enter analyst remark note to save to dossier timeline:", key="analyst_note_key")
+        if st.button("Save Remark Note", use_container_width=True):
+            if analyst_note:
+                db_manager.add_analyst_note(selected_case, new_analyst, analyst_note)
+                st.success("Note saved to timeline!")
+                st.rerun()
 
     st.divider()
     
-    # Regulator-Safe AI Case Narrative Report
-    st.subheader("📄 Automated AI CyberShield Fraud Investigation Report")
-    st.markdown(report_markdown)
+    # Deloitte/KPMG compliance report compilation
+    st.subheader("📄 Automated Compliance Assessment Brief")
+    
+    existing_report = db_manager.get_report_by_case(selected_case)
+    if existing_report:
+        report_content = existing_report["report_content"]
+    else:
+        with st.spinner("Generating Deloitte-Style Compliance Briefing..."):
+            report_content = gemini_service.generate_deloitte_report(
+                case_info, 
+                risk_profile, 
+                db_timeline, 
+                db_notes, 
+                db_alerts, 
+                new_analyst
+            )
+            db_manager.save_report(selected_case, new_analyst, report_content)
+            
+    # Styled Deloitte Document Container
+    st.markdown(f"""
+    <div style="background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 24px; padding: 48px 32px; box-shadow: 0 8px 30px rgba(15,23,42,.06); font-family: 'Inter', sans-serif; color: #0F172A; max-width: 1200px; margin: 0 auto;">
+        <div style="border-bottom: 2px solid #0F172A; padding-bottom: 24px; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div style="font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #0F172A;">Forensic Investigation Dossier</div>
+                <div style="font-size: 12px; font-weight: 600; color: #64748B; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px;">Deloitte Audit Services & Bank of India Cyber Cell</div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 11px; font-weight: bold; color: #EF4444; border: 1px solid #EF4444; border-radius: 6px; padding: 4px 10px; display: inline-block;">STAGE 3 CONFIDENTIAL</div>
+                <div style="font-size: 11px; color: #64748B; margin-top: 6px;">Ref: BOI-CS-{selected_case}</div>
+            </div>
+        </div>
+        <div style="font-size: 13px; line-height: 1.6; color: #334155;">
+            {report_content.replace("# FORENSIC INVESTIGATION & AUDIT DOSSIER", "").replace("---", "<hr style='border: none; border-bottom: 1px solid #E2E8F0; margin: 24px 0;' />").replace("### ", "<h4 style='font-size: 14px; font-weight: 700; color: #0F172A; text-transform: uppercase; margin-top: 24px; margin-bottom: 8px;'>").replace("\n* ", "<br/>● ").replace("h4>", "h4>")}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.write("")
     
     # Export report button (LOW Fix)
     st.download_button(
-        label="📥 Download Compliance Briefing Report",
-        data=report_markdown,
-        file_name=f"Forensic_Report_{selected_case}.md",
+        label="📥 Export Compliance Assessment Dossier",
+        data=report_content,
+        file_name=f"Deloitte_Forensic_Dossier_{selected_case}.md",
         mime="text/markdown"
     )
+
+    # -------------------------------------------------------------
+    # SIDEBAR FLOATING AI CO-PILOT ASSISTANT
+    # -------------------------------------------------------------
+    st.sidebar.divider()
+    st.sidebar.subheader("🤖 CyberShield AI Copilot")
+    st.sidebar.caption("Consult Gemini Flash regarding active case anomalies or Anti-Money Laundering procedures:")
+    
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = []
+        
+    user_question = st.sidebar.text_input("Ask AI Assistant...", placeholder="e.g. Why was this account flagged?", key="assistant_query_key")
+    if st.sidebar.button("Send Query", use_container_width=True):
+        if user_question:
+            with st.sidebar.spinner("Consulting Gemini..."):
+                answer = gemini_service.ask_investigation_assistant(
+                    user_question, 
+                    case_info, 
+                    risk_profile, 
+                    db_timeline, 
+                    db_notes, 
+                    db_alerts
+                )
+                st.session_state.chat_history.append((user_question, answer))
+                
+    if st.session_state.chat_history:
+        st.sidebar.write("**Consultation Log:**")
+        for q_item, a_item in reversed(st.session_state.chat_history[-4:]):
+            st.sidebar.markdown(f"**Q**: *{q_item}*")
+            st.sidebar.markdown(f"**AI**: {a_item}")
+            st.sidebar.divider()
+            
+        if st.sidebar.button("Clear Chat", use_container_width=True):
+            st.session_state.chat_history = []
+            st.rerun()
+
 
 # -------------------------------------------------------------
 # SCREEN 3: MODEL PERFORMANCE & AUDIT

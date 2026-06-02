@@ -33,6 +33,9 @@ Desktop.ini
 
 # Large Tabular Datasets (Prevents GitHub Push Failures > 100MB)
 dataset.csv
+*.db
+cybershield.db
+project/data/*.db
 
 # System generated local sandbox files
 .gemini/

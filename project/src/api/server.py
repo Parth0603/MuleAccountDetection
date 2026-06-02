@@ -1,12 +1,14 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 import pandas as pd
 import numpy as np
 import yaml
 import uvicorn
 import os
+import json
 
 from project.src.utils.logger import logger
 from project.src.preprocessing.cleaning import DataCleaner
@@ -15,6 +17,8 @@ from project.src.features.selection import FeatureSelector
 from project.src.models.pipeline import MuleModelPipeline
 from project.src.risk_engine.scoring import RiskScoreCalibrator
 from project.src.explainability.describer import FraudExplainer
+from project.src.utils.database import db_manager
+from project.src.utils.gemini import gemini_service
 
 # Initialize FastAPI App with metadata for Swagger UI docs
 app = FastAPI(
@@ -29,6 +33,15 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
+# Enable CORS for local cross-origin connections
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Global variables to hold loaded assets
 config = None
 cleaner = None
@@ -39,6 +52,7 @@ risk_calibrator = None
 explainer = None
 dtypes_map = {}
 is_ready = False
+
 
 class TransactionData(BaseModel):
     """
@@ -228,6 +242,167 @@ def generate_narrative_report(data: TransactionData):
         logger.error(f"Error compiling AI investigator report: {e}")
         raise HTTPException(status_code=400, detail=f"Reporting error: {str(e)}")
 
+# =========================================================
+# NEW PERSISTENT CASE MANAGEMENT & AI ASSISTANT APIs
+# =========================================================
+
+class AnalystNoteRequest(BaseModel):
+    analyst: str
+    note: str
+
+class EscalateRequest(BaseModel):
+    status: str
+    escalation_level: str
+    analyst: str
+    log_msg: str
+
+class AssistantRequest(BaseModel):
+    case_id: str
+    question: str
+
+@app.get("/api/v1/cases", summary="Get all cases")
+def list_cases():
+    return db_manager.get_cases()
+
+@app.get("/api/v1/cases/{id}", summary="Get case details by ID")
+def get_case(id: str):
+    case = db_manager.get_case_by_id(id)
+    if not case:
+        raise HTTPException(status_code=404, detail="Case not found")
+        
+    try:
+        # Extract features from case account
+        account_features = json.loads(case["account"]["behavioral_features"])
+        df_row = prepare_input_dataframe(account_features)
+        
+        # Process features through ML pipeline to get fresh live score & attributions
+        df_clean = cleaner.transform(df_row)
+        df_eng = engineer.transform(df_clean)
+        df_select = selector.transform(df_eng)
+        df_feat = df_select.drop(columns=["F3924", "target"], errors="ignore").astype(float)
+        
+        prob = model_pipeline.predict_proba(df_feat)[0]
+        risk_profile = risk_calibrator.generate_risk_profile(prob)
+        
+        # Evaluate local rule-based score
+        rule_score = 0
+        triggers = []
+        
+        val_velocity_per_month = df_eng.iloc[0].get("F_balance_velocity_per_month", 0.0)
+        val_velocity_per_day = df_eng.iloc[0].get("F_balance_velocity_per_day", 0.0)
+        val_anomaly = df_eng.iloc[0].get("F_unsupervised_anomaly_score", 0.0)
+        val_longevity = case["account"].get("account_longevity_months", 24)
+        val_balance = case["account"].get("balance_volume", 0.0)
+        
+        if val_velocity_per_month and val_velocity_per_month > 10000:
+            rule_score += 25
+            triggers.append({"name": "High transaction velocity", "score": 25})
+        if val_balance and val_balance > 100000:
+            rule_score += 20
+            triggers.append({"name": "Large cash movement", "score": 20})
+        if val_velocity_per_day and val_velocity_per_day > 1000:
+            rule_score += 20
+            triggers.append({"name": "Rapid ledger withdrawals", "score": 20})
+        if val_longevity and val_longevity < 12:
+            rule_score += 10
+            triggers.append({"name": "New account profile", "score": 10})
+        if val_anomaly and val_anomaly > 0.015:
+            rule_score += 10
+            triggers.append({"name": "Behavior Anomaly Index trigger", "score": 10})
+            
+        if rule_score == 0:
+            rule_score = 10
+            triggers.append({"name": "Baseline account audit score", "score": 10})
+            
+        ml_score = risk_profile["calibrated_score"]
+        final_score = int(np.clip((ml_score * 0.7) + (rule_score * 3.5), 300, 900))
+        
+        final_tier = risk_calibrator.get_risk_tier(final_score)
+        final_meta = risk_calibrator.get_recommends_and_actions(final_tier)
+        
+        full_risk_profile = {
+            "calibrated_score": final_score,
+            "risk_tier": final_tier,
+            "operational_action": final_meta["action"],
+            "color": final_meta["color"],
+            "instructions": final_meta["instructions"],
+            "raw_probability": float(prob),
+            "rule_score": rule_score,
+            "triggers": triggers,
+            "shap_contributions": explainer.explain_instance(df_feat)[:10]
+        }
+    except Exception as e:
+        logger.error(f"Error executing real-time prediction for case {id}: {e}")
+        # Default fallback risk profile if ML pipeline fails for some reason
+        full_risk_profile = {
+            "calibrated_score": 600,
+            "risk_tier": "MEDIUM",
+            "operational_action": "Verification Inquiry",
+            "color": "#F59E0B",
+            "instructions": "Audit baseline features locally.",
+            "raw_probability": 0.50,
+            "rule_score": 10,
+            "triggers": [{"name": "Pipeline inference fallback", "score": 10}],
+            "shap_contributions": []
+        }
+        
+    timeline = db_manager.get_investigations_by_case(id)
+    notes = db_manager.get_notes_by_case(id)
+    alerts = db_manager.get_alerts_by_account(case["account_id"])
+    
+    return {
+        "case": case,
+        "risk_profile": full_risk_profile,
+        "timeline": timeline,
+        "notes": notes,
+        "alerts": alerts
+    }
+
+@app.post("/api/v1/cases/{id}/notes", summary="Add analyst note")
+def add_note(id: str, data: AnalystNoteRequest):
+    note_id = db_manager.add_analyst_note(id, data.analyst, data.note)
+    return {"status": "success", "note_id": note_id}
+
+@app.post("/api/v1/cases/{id}/escalate", summary="Update status and escalate case")
+def escalate_case(id: str, data: EscalateRequest):
+    db_manager.update_case_workflow(id, data.status, data.escalation_level, data.analyst, data.log_msg)
+    return {"status": "success"}
+
+@app.get("/api/v1/cases/{id}/report", summary="Generate Deloitte-Style compliance report")
+def get_or_generate_report(id: str, analyst: str = "Forensic Analyst"):
+    existing = db_manager.get_report_by_case(id)
+    if existing:
+        return {"status": "success", "report": existing["report_content"]}
+        
+    case_details = get_case(id)
+    case = case_details["case"]
+    risk_profile = case_details["risk_profile"]
+    timeline = case_details["timeline"]
+    notes = case_details["notes"]
+    alerts = case_details["alerts"]
+    
+    report_markdown = gemini_service.generate_deloitte_report(case, risk_profile, timeline, notes, alerts, analyst)
+    db_manager.save_report(id, analyst, report_markdown)
+    return {"status": "success", "report": report_markdown}
+
+@app.post("/api/v1/assistant", summary="Ask floating AI assistant")
+def ask_assistant(data: AssistantRequest):
+    case_details = get_case(data.case_id)
+    case = case_details["case"]
+    risk_profile = case_details["risk_profile"]
+    timeline = case_details["timeline"]
+    notes = case_details["notes"]
+    alerts = case_details["alerts"]
+    
+    response = gemini_service.ask_investigation_assistant(data.question, case, risk_profile, timeline, notes, alerts)
+    return {"status": "success", "answer": response}
+
+@app.post("/api/v1/demo/generate", summary="Trigger database seeding manually")
+def trigger_generate():
+    db_manager.seed_data_if_empty(raw_dataset_path="dataset.csv")
+    return {"status": "success", "message": "Database seeded with synthetic data."}
+
 if __name__ == "__main__":
     # Start ASGI server on port 8000
     uvicorn.run("project.src.api.server:app", host="0.0.0.0", port=8000, reload=False)
+
