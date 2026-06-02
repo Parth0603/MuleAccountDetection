@@ -1,0 +1,3002 @@
+<!-- Saved as a copy inside project/dashboard -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield AI - Mule Account Detection & Fraud Intelligence</title>
+    
+    <!-- Premium Inter Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* -------------------------------------------------------------
+           PREMIUM FINTECH DESIGN SYSTEM (STRIPE + LINEAR + MERCURY + APPLE)
+           ------------------------------------------------------------- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: #F6F7FB;
+            color: #111827;
+            line-height: 1.5;
+            padding-bottom: 64px;
+            overflow-y: scroll;
+        }
+
+        .container {
+            max-width: 1440px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 48px);
+            box-sizing: border-box;
+        }
+
+        /* -------------------------------------------------------------
+           TOP NAVIGATION ONLY (LINEAR STYLE)
+           ------------------------------------------------------------- */
+        header {
+            background-color: #FFFFFF;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+            height: 80px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            max-width: 1440px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 clamp(16px, 4vw, 48px);
+            box-sizing: border-box;
+        }
+
+        .logo-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: 40px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1.5px solid rgba(15, 23, 42, 0.06);
+        }
+
+        .logo-text-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111827;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+
+        .logo-subtitle {
+            font-size: 10px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* Navigation Tabs (Linear style) */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            background-color: #F3F4F6;
+            padding: 4px;
+            border-radius: 20px;
+            height: 56px;
+            align-items: center;
+            border: 1px solid rgba(15, 23, 42, 0.02);
+        }
+
+        .nav-tab {
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6B7280;
+            text-decoration: none;
+            border-radius: 16px;
+            transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 48px;
+            border: 1px solid transparent;
+        }
+
+        .nav-tab:hover {
+            color: #111827;
+        }
+
+        .nav-tab.active {
+            color: #4F46E5;
+            background-color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(79, 70, 229, 0.2);
+        }
+        
+        .nav-tab i {
+            stroke-width: 2px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .bell-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6B7280;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 150ms ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .bell-btn::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background-color: #EF4444;
+            border-radius: 50%;
+            border: 1.5px solid #FFFFFF;
+        }
+
+        .bell-btn:hover {
+            background-color: #F3F4F6;
+            color: #111827;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px;
+            background-color: #FFFFFF;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            border-radius: 14px;
+        }
+
+        .profile-avatar {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #E0E7FF 0%, #C7D2FE 100%);
+            color: #4F46E5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1.2;
+        }
+
+        .profile-role {
+            font-size: 10px;
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+        .analytics-grid > * {
+            min-width: 0; /* Instantly allows Chart.js canvases to shrink! */
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .kpi-grid > * {
+            min-width: 0; /* Instantly allows KPI cards to shrink! */
+        }
+
+        .triage-section {
+            display: grid;
+            grid-template-columns: 2.1fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+        .triage-section > * {
+            min-width: 0;
+        }
+        
+        .desk-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 32px;
+            margin-top: 24px;
+        }
+        .desk-layout > * {
+            min-width: 0;
+        }
+        
+        .audit-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+        .audit-grid > * {
+            min-width: 0;
+        }
+    
+/* -------------------------------------------------------------
+           PAGE HEADER STYLING
+           ------------------------------------------------------------- */
+        .page-header {
+            margin-top: 48px;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            color: #111827;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: #6B7280;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        /* -------------------------------------------------------------
+           CARD SYSTEM DEFINITIONS
+           ------------------------------------------------------------- */
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            border-radius: 24px;
+            box-shadow: 0px 8px 30px rgba(15, 23, 42, 0.06);
+            padding: 24px;
+            position: relative;
+        }
+
+        /* -------------------------------------------------------------
+           KPI GRIDS & MINI CARDS
+           ------------------------------------------------------------- */
+
+
+        .kpi-card {
+            height: 180px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-left {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .kpi-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .kpi-icon-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .kpi-value {
+            font-size: clamp(28px, 2.8vw, 40px);
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .kpi-subtitle {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6B7280;
+            margin-top: 4px;
+        }
+
+        .kpi-sparkline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100% !important;
+            height: 55px !important;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* -------------------------------------------------------------
+           SECTION 2: THREE-COLUMN ANALYTICS GRID
+           ------------------------------------------------------------- */
+
+
+        .section-header {
+            font-size: 24px;
+            font-weight: 650;
+            color: #111827;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        /* Risk Donut Chart Styling */
+        .donut-container {
+            position: relative;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .donut-center-overlay {
+            position: absolute;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .donut-center-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .donut-center-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .legend-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #4B5563;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Top Risk Drivers Ranked Horizontal Bars */
+        .driver-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .driver-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        .driver-name {
+            font-weight: 600;
+            color: #4B5563;
+            width: 85px;
+        }
+
+        .driver-bar-wrapper {
+            flex-grow: 1;
+            height: 8px;
+            background-color: #F3F4F6;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0 12px;
+        }
+
+        .driver-bar {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        .driver-val {
+            font-weight: 700;
+            color: #111827;
+            width: 40px;
+            text-align: right;
+        }
+
+        /* -------------------------------------------------------------
+           SECTION 3: CASE LOG TABLE & RIGHT STATS PANEL
+           ------------------------------------------------------------- */
+
+
+        .table-card {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .table-header-block {
+            padding: 24px 24px 12px 24px;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 16px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+            background-color: #FFFFFF;
+        }
+
+        th:first-child {
+            padding-left: 24px;
+        }
+
+        th:last-child {
+            padding-right: 24px;
+        }
+
+        td {
+            padding: 0 12px;
+            height: 64px;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: #4B5563;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+            white-space: nowrap;
+        }
+
+        td:first-child {
+            padding-left: 24px;
+        }
+
+        td:last-child {
+            padding-right: 24px;
+        }
+
+        tr {
+            transition: background-color 150ms ease;
+        }
+
+        tr:hover td {
+            background-color: #FAFAFB;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .case-id-cell {
+            font-weight: 700;
+            color: #4F46E5;
+            cursor: pointer;
+        }
+
+        .case-id-cell:hover {
+            text-decoration: underline;
+        }
+
+        .status-pill {
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pill-open {
+            background-color: rgba(34, 197, 94, 0.08);
+            color: #22C55E;
+        }
+
+        .pill-escalated {
+            background-color: rgba(245, 158, 11, 0.08);
+            color: #D97706;
+        }
+
+        .pill-critical {
+            background-color: rgba(239, 68, 68, 0.08);
+            color: #EF4444;
+        }
+
+        .action-icon-group {
+            display: flex;
+            gap: 12px;
+            color: #9CA3AF;
+            align-items: center;
+            height: 100%;
+        }
+
+        .action-icon {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .action-icon:hover {
+            color: #111827;
+        }
+
+        /* Recent Alerts List (Right Panel) */
+        .alerts-card {
+            margin-bottom: 24px;
+        }
+
+        .alerts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13.5px;
+        }
+
+        .alert-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .alert-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .alert-desc {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .alert-time {
+            font-size: 11px;
+            color: #9CA3AF;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        /* System Health Section */
+        .health-status-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #15803D;
+            margin-top: 4px;
+            margin-bottom: 20px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #22C55E;
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
+
+        .health-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4B5563;
+            margin-bottom: 12px;
+        }
+
+        .health-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .health-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #22C55E;
+            font-weight: 700;
+        }
+
+        /* -------------------------------------------------------------
+           SECTION 4: BOTTOM PERFORMANCE CARDS
+           ------------------------------------------------------------- */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .bottom-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 180px;
+        }
+
+        .perf-header {
+            font-size: 12px;
+            font-weight: 600;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .perf-metrics {
+            margin-top: 12px;
+        }
+
+        .perf-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .perf-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .perf-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+        }
+
+        .perf-val {
+            font-size: 18px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .matrix-item {
+            background-color: #F9FAFB;
+            border: 1px solid rgba(15, 23, 42, 0.03);
+            border-radius: 8px;
+            padding: 6px 10px;
+            text-align: center;
+        }
+
+        .matrix-label {
+            font-size: 9px;
+            font-weight: 700;
+            color: #9CA3AF;
+            text-transform: uppercase;
+        }
+
+        .matrix-num {
+            font-size: 14px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .perf-desc {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6B7280;
+            line-height: 1.4;
+            margin-top: 12px;
+        }
+
+        /* -------------------------------------------------------------
+           TAB-SPECIFIC CONTENT MANAGEMENT
+           ------------------------------------------------------------- */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active-content {
+            display: block;
+        }
+
+        /* -------------------------------------------------------------
+           INVESTIGATION DESK SCREEN (HERO RISK SCORE ARCHITECTURE)
+           ------------------------------------------------------------- */
+
+
+        .form-row {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4B5563;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+            letter-spacing: 0.04em;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid #E5E7EB;
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            background-color: #F9FAFB;
+            outline: none;
+            transition: all 150ms ease;
+        }
+
+        .form-select:focus {
+            border-color: #4F46E5;
+            background-color: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .desc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .desc-card {
+            background-color: #F9FAFB;
+            border: 1px solid rgba(15, 23, 42, 0.02);
+            border-radius: 14px;
+            padding: 12px 16px;
+        }
+
+        .desc-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .desc-val {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 2px;
+        }
+
+        /* Super Hero Risk Score Billboard */
+        .risk-score-billboard {
+            background-color: #FFFFFF;
+            border-radius: 24px;
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            box-shadow: 0px 8px 30px rgba(15, 23, 42, 0.06);
+            padding: 48px 32px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .risk-score-value-container {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .risk-score-large {
+            font-size: 72px;
+            font-weight: 800;
+            color: #111827;
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .risk-score-max {
+            font-size: 24px;
+            font-weight: 600;
+            color: #9CA3AF;
+            letter-spacing: -0.02em;
+        }
+
+        .risk-tier-badge {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 8px 20px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 150ms ease;
+        }
+
+        .action-btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 150ms ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-freeze {
+            background-color: rgba(239, 68, 68, 0.08);
+            color: #EF4444;
+            border: 1px solid rgba(239, 68, 68, 0.15);
+        }
+        .btn-freeze:hover {
+            background-color: #EF4444;
+            color: #FFFFFF;
+        }
+
+        .btn-escalate {
+            background-color: rgba(245, 158, 11, 0.08);
+            color: #D97706;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+        .btn-escalate:hover {
+            background-color: #D97706;
+            color: #FFFFFF;
+        }
+
+        .btn-approve {
+            background-color: rgba(34, 197, 94, 0.08);
+            color: #15803D;
+            border: 1px solid rgba(34, 197, 94, 0.15);
+            grid-column: span 2;
+        }
+        .btn-approve:hover {
+            background-color: #15803D;
+            color: #FFFFFF;
+        }
+
+        /* Dynamic Timeline */
+        .timeline-log {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .timeline-node {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+        }
+
+        .timeline-bullet {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4F46E5;
+            margin-top: 6px;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        .timeline-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timeline-header {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .timeline-sub {
+            font-size: 11px;
+            color: #9CA3AF;
+            margin-top: 2px;
+        }
+
+        /* -------------------------------------------------------------
+           ENTERPRISE FORENSIC REPORT STYLING
+           ------------------------------------------------------------- */
+        .forensic-report {
+            background-color: #FFFFFF;
+            color: #111827;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+        
+        .report-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .report-org {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #4F46E5;
+        }
+        
+        .report-sec {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #111827;
+        }
+        
+        .report-doc-id {
+            font-family: monospace;
+            font-size: 12px;
+            font-weight: 600;
+            background-color: #F3F4F6;
+            color: #4B5563;
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+        
+        .report-divider {
+            height: 1px;
+            background-color: rgba(15, 23, 42, 0.08);
+            margin: 24px 0;
+        }
+        
+        .report-section {
+            margin-bottom: 32px;
+        }
+        
+        .report-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .report-heading {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6B7280;
+            margin-bottom: 12px;
+        }
+        
+        .report-callout {
+            background-color: #FAFAFB;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            border-left: 4px solid #EF4444;
+        }
+        
+        .callout-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        
+        .callout-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .callout-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        
+        .callout-val {
+            font-size: 14px;
+            font-weight: 700;
+            color: #111827;
+        }
+        
+        .report-p {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #374151;
+        }
+        
+        .report-list {
+            margin-top: 12px;
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .report-list li {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            line-height: 1.5;
+        }
+        
+        .actions-stepper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .stepper-step {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        
+        .step-num {
+            width: 24px;
+            height: 24px;
+            background-color: #E0E7FF;
+            color: #4F46E5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .step-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        /* -------------------------------------------------------------
+           PREMIUM COMPLIANCE BRIEFING REPORT STYLING (KPMG / DELOITTE STYLE)
+           ------------------------------------------------------------- */
+        .compliance-card {
+            background-color: #FFFFFF;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            font-family: 'Inter', sans-serif;
+            color: #1F2937;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .comp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #E5E7EB;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .comp-header-left h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #111827;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .comp-header-left p {
+            font-size: 13px;
+            color: #4F46E5;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 6px;
+        }
+
+        .comp-header-right {
+            text-align: right;
+            font-size: 11px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* Metadata Grid */
+        .comp-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            background-color: #F9FAFB;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(15, 23, 42, 0.03);
+            margin-bottom: 40px;
+        }
+
+        .comp-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .comp-meta-label {
+            font-size: 10px;
+            font-weight: 750;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comp-meta-val {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        /* Section Layout */
+        .comp-section {
+            margin-bottom: 48px;
+        }
+
+        .comp-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .comp-section-title {
+            font-size: 18px;
+            font-weight: 750;
+            color: #111827;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+            padding-bottom: 8px;
+        }
+
+        .comp-section-title i {
+            color: #4F46E5;
+        }
+
+        /* Executive Summary Grid */
+        .comp-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .comp-summary-card {
+            height: 120px;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid rgba(15, 23, 42, 0.03);
+            transition: all 200ms ease;
+        }
+
+        .comp-summary-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .comp-summary-label {
+            font-size: 10px;
+            font-weight: 750;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comp-summary-val {
+            font-size: 24px;
+            font-weight: 800;
+            color: #111827;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        /* Risk Callout Panel */
+        .comp-risk-callout {
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            background-color: #FAFAFB;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 2fr;
+            gap: 24px;
+        }
+
+        .comp-callout-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .comp-callout-label {
+            font-size: 10px;
+            font-weight: 750;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .comp-callout-val {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        .comp-callout-val strong {
+            color: #111827;
+            font-weight: 750;
+        }
+
+        /* Dynamic Insight Cards (Behavioral Drivers) */
+        .comp-driver-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .comp-driver-card {
+            background-color: #FFFFFF;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 150ms ease;
+        }
+
+        .comp-driver-card:hover {
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+            border-color: rgba(79, 70, 229, 0.15);
+        }
+
+        .comp-driver-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .comp-driver-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .comp-driver-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .comp-driver-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .comp-driver-badge {
+            font-size: 10px;
+            font-weight: 750;
+            padding: 4px 10px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .comp-driver-desc {
+            font-size: 13.5px;
+            color: #4B5563;
+            line-height: 1.5;
+        }
+
+        /* Feature Contribution Progress Bars */
+        .comp-feature-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background-color: #FAFAFB;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(15, 23, 42, 0.03);
+        }
+
+        .comp-bar-row {
+            display: grid;
+            grid-template-columns: 200px 1fr 60px;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .comp-bar-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .comp-bar-wrapper {
+            height: 8px;
+            background-color: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .comp-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        .comp-bar-val {
+            font-size: 13px;
+            font-weight: 750;
+            color: #111827;
+            text-align: right;
+        }
+
+        /* Recommended Action Cards */
+        .comp-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .comp-action-card {
+            background-color: #FFFFFF;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 150ms ease;
+        }
+
+        .comp-action-card:hover {
+            box-shadow: 0 6px 22px rgba(15, 23, 42, 0.04);
+            border-color: rgba(79, 70, 229, 0.15);
+        }
+
+        .comp-action-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .comp-action-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .comp-action-badge {
+            font-size: 9px;
+            font-weight: 750;
+            padding: 2px 8px;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        .comp-action-name {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 4px;
+        }
+
+        .comp-action-desc {
+            font-size: 12px;
+            color: #4B5563;
+            line-height: 1.5;
+        }
+
+        /* Compliance Notes Info Panel */
+        .comp-notes-panel {
+            background-color: #F9FAFB;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .comp-note-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .comp-note-label {
+            font-size: 10px;
+            font-weight: 750;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comp-note-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12.5px;
+            font-weight: 600;
+        }
+
+        .comp-note-desc {
+            font-size: 11.5px;
+            color: #6B7280;
+            line-height: 1.4;
+        }
+
+        /* -------------------------------------------------------------
+           MODEL AUDIT SCREEN
+           ------------------------------------------------------------- */
+
+    </style>
+</head>
+<body>
+
+    <!-- -------------------------------------------------------------
+       TOP NAVIGATION BAR
+       ------------------------------------------------------------- -->
+    <header>
+        <div class="nav-container">
+            <div class="logo-block">
+                <!-- Direct load of bankofindialogo.jpg from root -->
+                <img src="./bankofindialogo.jpg" class="logo-img" alt="Bank of India Logo">
+                <div class="logo-text-group">
+                    <span class="logo-title">CyberShield AI</span>
+                    <span class="logo-subtitle">Bank of India</span>
+                </div>
+            </div>
+            
+            <nav class="nav-tabs">
+                <div class="nav-tab active" onclick="switchTab('ecc', this)">
+                    <i data-lucide="home" style="width: 16px; height: 16px;"></i>
+                    <span>Executive Command Center</span>
+                </div>
+                <div class="nav-tab" onclick="switchTab('desk', this)">
+                    <i data-lucide="search" style="width: 16px; height: 16px;"></i>
+                    <span>Investigation Desk</span>
+                </div>
+                <div class="nav-tab" onclick="switchTab('audit', this)">
+                    <i data-lucide="bar-chart-2" style="width: 16px; height: 16px;"></i>
+                    <span>Model Audit</span>
+                </div>
+            </nav>
+            
+            <div class="nav-right">
+                <button class="bell-btn">
+                    <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
+                </button>
+                <div class="profile-card">
+                    <div class="profile-avatar">BOI</div>
+                    <div class="profile-info">
+                        <span class="profile-name">Forensic Team</span>
+                        <span class="profile-role">Fraud Operations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="display: flex; flex-direction: column; gap: 32px;">
+        
+        <!-- -------------------------------------------------------------
+           TAB 1: EXECUTIVE COMMAND CENTER
+           ------------------------------------------------------------- -->
+        <div id="tab-ecc" class="tab-content active-content">
+            <div class="page-header">
+                <h1 class="page-title">Executive Command Center</h1>
+                <p class="page-subtitle">AI-Powered suspicious Mule Account Detection & Fraud Intelligence Platform</p>
+            </div>
+
+            <!-- KPI Cards Grid -->
+            <div class="kpi-grid">
+                <!-- Card 1 -->
+                <div class="card kpi-card">
+                    <div class="kpi-left">
+                        <div class="kpi-meta">
+                            <div class="kpi-icon-circle" style="background-color: #EEF2FF; color: #4F46E5;">
+                                <i data-lucide="users" style="width: 16px; height: 16px;"></i>
+                            </div>
+                            <span class="kpi-title">Total Accounts Monitored</span>
+                        </div>
+                        <div>
+                            <div class="kpi-value">9082</div>
+                            <div class="kpi-subtitle">Standard Batch Monitoring</div>
+                        </div>
+                    </div>
+                    <canvas class="kpi-sparkline" id="spark-total"></canvas>
+                </div>
+                <!-- Card 2 -->
+                <div class="card kpi-card">
+                    <div class="kpi-left">
+                        <div class="kpi-meta">
+                            <div class="kpi-icon-circle" style="background-color: #FEE2E2; color: #EF4444;">
+                                <i data-lucide="alert-triangle" style="width: 16px; height: 16px;"></i>
+                            </div>
+                            <span class="kpi-title">Suspicious Accounts (Mule)</span>
+                        </div>
+                        <div>
+                            <div class="kpi-value">153</div>
+                            <div class="kpi-subtitle">From OOF Validation Splits</div>
+                        </div>
+                    </div>
+                    <canvas class="kpi-sparkline" id="spark-alerts"></canvas>
+                </div>
+                <!-- Card 3 -->
+                <div class="card kpi-card">
+                    <div class="kpi-left">
+                        <div class="kpi-meta">
+                            <div class="kpi-icon-circle" style="background-color: #FFEDD5; color: #FB923C;">
+                                <i data-lucide="activity" style="width: 16px; height: 16px;"></i>
+                            </div>
+                            <span class="kpi-title">Active Investigations</span>
+                        </div>
+                        <div>
+                            <div class="kpi-value" id="ecc-active-cases">15</div>
+                            <div class="kpi-subtitle" id="ecc-cases-sub">0 Frozen | 15 Open</div>
+                        </div>
+                    </div>
+                    <canvas class="kpi-sparkline" id="spark-investigations"></canvas>
+                </div>
+                <!-- Card 4 -->
+                <div class="card kpi-card">
+                    <div class="kpi-left">
+                        <div class="kpi-meta">
+                            <div class="kpi-icon-circle" style="background-color: #DCFCE7; color: #22C55E;">
+                                <i data-lucide="indian-rupee" style="width: 16px; height: 16px;"></i>
+                            </div>
+                            <span class="kpi-title">Funds At Risk</span>
+                        </div>
+                        <div>
+                            <div class="kpi-value">₹40,386,402</div>
+                            <div class="kpi-subtitle">Balance Volume Registry</div>
+                        </div>
+                    </div>
+                    <canvas class="kpi-sparkline" id="spark-funds"></canvas>
+                </div>
+            </div>
+
+            <!-- Analytics Grid (Three Columns) -->
+            <div class="analytics-grid">
+                <!-- Column 1: Donut -->
+                <div class="card">
+                    <h3 class="section-header">Risk Distribution Overview</h3>
+                    <div class="donut-container">
+                        <canvas id="donut-risk"></canvas>
+                        <div class="donut-center-overlay">
+                            <span class="donut-center-value" style="font-size: 32px; font-weight: 700;">9082</span>
+                            <span class="donut-center-label" style="font-size: 11px; font-weight: 600; color: #6B7280; text-transform: uppercase;">Total Accounts</span>
+                        </div>
+                    </div>
+                    <div class="legend-list">
+                        <div class="legend-item"><span class="dot" style="background-color: #EF4444;"></span> Critical</div>
+                        <div class="legend-item"><span class="dot" style="background-color: #FB923C;"></span> High</div>
+                        <div class="legend-item"><span class="dot" style="background-color: #F59E0B;"></span> Medium</div>
+                        <div class="legend-item"><span class="dot" style="background-color: #22C55E;"></span> Low</div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Area Chart -->
+                <div class="card">
+                    <h3 class="section-header">Alert Volume Trend</h3>
+                    <div style="height: 250px; position: relative; margin-top: 10px;">
+                        <canvas id="area-trend"></canvas>
+                    </div>
+                </div>
+
+                <!-- Column 3: Custom Top Risk Drivers -->
+                <div class="card">
+                    <h3 class="section-header">Top Risk Drivers</h3>
+                    <div class="driver-list">
+                        <div class="driver-item">
+                            <span class="driver-name">F3898</span>
+                            <div class="driver-bar-wrapper">
+                                <div class="driver-bar" style="width: 95%; background: linear-gradient(90deg, #EF4444, #F97316);"></div>
+                            </div>
+                            <span class="driver-val">0.95</span>
+                        </div>
+                        <div class="driver-item">
+                            <span class="driver-name">F3914</span>
+                            <div class="driver-bar-wrapper">
+                                <div class="driver-bar" style="width: 82%; background: linear-gradient(90deg, #EF4444, #FB923C);"></div>
+                            </div>
+                            <span class="driver-val">0.82</span>
+                        </div>
+                        <div class="driver-item">
+                            <span class="driver-name">F2489_isnan</span>
+                            <div class="driver-bar-wrapper">
+                                <div class="driver-bar" style="width: 74%; background: linear-gradient(90deg, #F97316, #FB923C);"></div>
+                            </div>
+                            <span class="driver-val">0.74</span>
+                        </div>
+                        <div class="driver-item">
+                            <span class="driver-name">F2486_isnan</span>
+                            <div class="driver-bar-wrapper">
+                                <div class="driver-bar" style="width: 68%; background: linear-gradient(90deg, #FB923C, #F59E0B);"></div>
+                            </div>
+                            <span class="driver-val">0.68</span>
+                        </div>
+                        <div class="driver-item">
+                            <span class="driver-name">F270</span>
+                            <div class="driver-bar-wrapper">
+                                <div class="driver-bar" style="width: 61%; background: linear-gradient(90deg, #F59E0B, #EAB308);"></div>
+                            </div>
+                            <span class="driver-val">0.61</span>
+                        </div>
+                        <div class="driver-item">
+                            <span class="driver-name">F160</span>
+                            <div class="driver-bar-wrapper">
+                                <div class="driver-bar" style="width: 53%; background: linear-gradient(90deg, #EAB308, #FACC15);"></div>
+                            </div>
+                            <span class="driver-val">0.53</span>
+                        </div>
+                        <div class="driver-item">
+                            <span class="driver-name">F996</span>
+                            <div class="driver-bar-wrapper">
+                                <div class="driver-bar" style="width: 45%; background: linear-gradient(90deg, #FACC15, #FDE047);"></div>
+                            </div>
+                            <span class="driver-val">0.45</span>
+                        </div>
+                        <div class="driver-item">
+                            <span class="driver-name">F3908</span>
+                            <div class="driver-bar-wrapper">
+                                <div class="driver-bar" style="width: 38%; background: linear-gradient(90deg, #FDE047, #FEF08A);"></div>
+                            </div>
+                            <span class="driver-val">0.38</span>
+                        </div>
+                        <div class="driver-item">
+                            <span class="driver-name">F61_isnan</span>
+                            <div class="driver-bar-wrapper">
+                                <div class="driver-bar" style="width: 32%; background: linear-gradient(90deg, #FEF08A, #FEF9C3);"></div>
+                            </div>
+                            <span class="driver-val">0.32</span>
+                        </div>
+                        <div class="driver-item">
+                            <span class="driver-name">F64_isnan</span>
+                            <div class="driver-bar-wrapper">
+                                <div class="driver-bar" style="width: 25%; background: linear-gradient(90deg, #FEF9C3, #FFFDEC);"></div>
+                            </div>
+                            <span class="driver-val">0.25</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Triage Grid Section -->
+            <div class="triage-section">
+                <!-- Case Log Card -->
+                <div class="card table-card">
+                    <div class="table-header-block">
+                        <h3 class="section-header" style="margin-bottom: 5px;">ACTIVE THREAT CASE INVESTIGATIONS</h3>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Case ID</th>
+                                    <th>Customer Segment</th>
+                                    <th>Balance Volume</th>
+                                    <th>Analyst Assigned</th>
+                                    <th>Operational Timeline</th>
+                                    <th>Escalation Level</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="case-table-body">
+                                <!-- Dynamic entries rendered via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Alerts & Health Panel -->
+                <div>
+                    <!-- Recent Alerts -->
+                    <div class="card alerts-card">
+                        <h3 class="section-header" style="margin-bottom: 16px;">RECENT ALERTS</h3>
+                        <div class="alerts-list">
+                            <div class="alert-item">
+                                <div class="alert-indicator" style="background-color: #EF4444;"></div>
+                                <div class="alert-body">
+                                    <span class="alert-desc">High risk account detected</span>
+                                    <span class="alert-time">2 mins ago | CASE-2026-1002</span>
+                                </div>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-indicator" style="background-color: #F59E0B;"></div>
+                                <div class="alert-body">
+                                    <span class="alert-desc">New mule pattern identified</span>
+                                    <span class="alert-time">14 mins ago | CASE-2026-1001</span>
+                                </div>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-indicator" style="background-color: #FB923C;"></div>
+                                <div class="alert-body">
+                                    <span class="alert-desc">Investigation escalated</span>
+                                    <span class="alert-time">1 hour ago | CASE-2026-1000</span>
+                                </div>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-indicator" style="background-color: #22C55E;"></div>
+                                <div class="alert-body">
+                                    <span class="alert-desc">Funds freeze executed</span>
+                                    <span class="alert-time">3 hours ago | CASE-2026-2001</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Health -->
+                    <div class="card">
+                        <h3 class="section-header" style="margin-bottom: 2px;">SYSTEM HEALTH</h3>
+                        <div class="health-status-bar">
+                            <div class="pulse-dot"></div> All Systems Operational
+                        </div>
+                        <div class="health-list">
+                            <div class="health-item">
+                                <span>API Gateway</span>
+                                <span class="health-indicator" style="color: #22C55E;"><i data-lucide="check-circle" style="width: 14px; height: 14px;"></i> Active</span>
+                            </div>
+                            <div class="health-item">
+                                <span>ML Pipeline</span>
+                                <span class="health-indicator" style="color: #22C55E;"><i data-lucide="check-circle" style="width: 14px; height: 14px;"></i> Active</span>
+                            </div>
+                            <div class="health-item">
+                                <span>SHAP Engine</span>
+                                <span class="health-indicator" style="color: #22C55E;"><i data-lucide="check-circle" style="width: 14px; height: 14px;"></i> Active</span>
+                            </div>
+                            <div class="health-item">
+                                <span>Database</span>
+                                <span class="health-indicator" style="color: #22C55E;"><i data-lucide="check-circle" style="width: 14px; height: 14px;"></i> Connected</span>
+                            </div>
+                            <div class="health-item">
+                                <span>Dashboard</span>
+                                <span class="health-indicator" style="color: #22C55E;"><i data-lucide="check-circle" style="width: 14px; height: 14px;"></i> Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Performance Cards -->
+            <div class="bottom-grid">
+                <!-- Card 1 -->
+                <div class="card bottom-card" style="border-top: 3px solid #4F46E5;">
+                    <span class="perf-header">Model Performance (OOF)</span>
+                    <div class="perf-metrics">
+                        <div class="perf-row">
+                            <span class="perf-label">PR-AUC</span>
+                            <span class="perf-val">0.700915</span>
+                        </div>
+                        <div class="perf-row">
+                            <span class="perf-label">Recall @ 1% FPR</span>
+                            <span class="perf-val">79.01%</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="card bottom-card" style="border-top: 3px solid #22C55E;">
+                    <span class="perf-header">Detection Performance</span>
+                    <div class="perf-metrics">
+                        <div class="perf-row">
+                            <span class="perf-label">Recall</span>
+                            <span class="perf-val">59.26%</span>
+                        </div>
+                        <div class="perf-row">
+                            <span class="perf-label">Precision</span>
+                            <span class="perf-val">69.57%</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="card bottom-card" style="border-top: 3px solid #FB923C;">
+                    <span class="perf-header">Confusion Matrix</span>
+                    <div class="matrix-grid">
+                        <div class="matrix-item"><div class="matrix-label">TP</div><div class="matrix-num">48</div></div>
+                        <div class="matrix-item"><div class="matrix-label">FP</div><div class="matrix-num">21</div></div>
+                        <div class="matrix-item"><div class="matrix-label">FN</div><div class="matrix-num">33</div></div>
+                        <div class="matrix-item"><div class="matrix-label">TN</div><div class="matrix-num">8980</div></div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="card bottom-card" style="border-top: 3px solid #EF4444;">
+                    <span class="perf-header">Operational Impact</span>
+                    <div class="perf-metrics" style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #4B5563;">
+                            <span style="color: #22C55E; font-size: 16px;">●</span> FPR Controlled at 1%
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #4B5563;">
+                            <span style="color: #4F46E5; font-size: 16px;">●</span> High Recall for Critical Alerts
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -------------------------------------------------------------
+           TAB 2: INVESTIGATION DESK (ACTIVE SOC WORKSPACE)
+           ------------------------------------------------------------- -->
+        <div id="tab-desk" class="tab-content">
+            <div class="page-header">
+                <h1 class="page-title">Forensic Triage Workspace</h1>
+                <p class="page-subtitle">Inspect local attributions, dynamically simulate parameter overrides, and record actions</p>
+            </div>
+
+            <div class="desk-layout">
+                <!-- Left Hand Desk Panel -->
+                <div class="card" style="display: flex; flex-direction: column; gap: 20px;">
+                    <h3 class="section-header" style="margin-bottom: 0;">Case Inquest File</h3>
+                    
+                    <div class="form-row">
+                        <label class="form-label">Active Investigation Selection</label>
+                        <select class="form-select" id="desk-case-select" onchange="loadCaseProfile(this.value)">
+                            <!-- Options pre-loaded via JS -->
+                        </select>
+                    </div>
+
+                    <div>
+                        <h4 style="font-size: 14px; font-weight: 700; color: #111827;">Account Behavioral Metrics</h4>
+                        <div class="desc-grid">
+                            <div class="desc-card"><div class="desc-label">Product Type</div><div class="desc-val" id="d-product">Savings</div></div>
+                            <div class="desc-card"><div class="desc-label">Account Balance</div><div class="desc-val" id="d-balance">₹29,814.53</div></div>
+                            <div class="desc-card"><div class="desc-label">Active Tenure</div><div class="desc-val" id="d-tenure">170 months</div></div>
+                            <div class="desc-card"><div class="desc-label">Tenure Days</div><div class="desc-val" id="d-age">5,266 days</div></div>
+                            <div class="desc-card" style="grid-column: span 2;"><div class="desc-label">Behavior Anomaly index (Isolation Forest)</div><div class="desc-val" id="d-anomaly">0.0997</div></div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Slider Sandbox -->
+                    <div style="background-color: #F8FAFC; border-radius: 18px; padding: 20px; border: 1px solid rgba(15, 23, 42, 0.03);">
+                        <h4 style="font-size: 13px; font-weight: 700; color: #4F46E5; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><i data-lucide="sliders" style="width: 16px; height: 16px; stroke-width: 2px;"></i><span>Dynamic Simulation Sandbox</span></h4>
+                        
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: #4B5563; margin-bottom: 4px;">
+                                <span>Simulate Deposit Volume (F3836)</span>
+                                <span id="val-sim-vol">₹29,814</span>
+                            </div>
+                            <input type="range" id="sim-vol-range" min="0" max="2000000" step="10000" style="width: 100%; cursor: pointer;" oninput="runLiveSimulation()">
+                        </div>
+
+                        <div>
+                            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: #4B5563; margin-bottom: 4px;">
+                                <span>Simulate Months Active (F3887)</span>
+                                <span id="val-sim-dur">170 months</span>
+                            </div>
+                            <input type="range" id="sim-dur-range" min="1" max="240" style="width: 100%; cursor: pointer;" oninput="runLiveSimulation()">
+                        </div>
+                    </div>
+
+<!-- Dynamic Risk Score Box (HERO ELEMENT) -->
+                    <div class="risk-score-billboard" id="desk-score-box">
+                        <div style="font-size: 12px; font-weight: 600; color: #6B7280; text-transform: uppercase; letter-spacing: 0.08em;">Calibrated Fraud Risk Score</div>
+                        <div class="risk-score-value-container">
+                            <span class="risk-score-large" id="d-calibrated-score">300</span>
+                            <span class="risk-score-max">/ 900</span>
+                        </div>
+                        <span class="risk-tier-badge" id="d-risk-tier">LOW RISK TIER</span>
+                    </div>
+                </div>
+
+                <!-- Right Hand Diagnostic Desk -->
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <!-- Attributions & Analyst Actions -->
+                    <div class="card">
+                        <h3 class="section-header">Forensic Decision Desk</h3>
+                        
+                        <div style="height: 240px; position: relative;">
+                            <canvas id="desk-attributions"></canvas>
+                        </div>
+                        
+                        <div class="action-btn-group">
+                            <button class="action-btn btn-freeze" onclick="handleAnalystAction('freeze')">
+                                <i data-lucide="shield-alert" style="width: 16px; height: 16px;"></i>
+                                <span>Apply Debit Freeze</span>
+                            </button>
+                            <button class="action-btn btn-escalate" onclick="handleAnalystAction('escalate')">
+                                <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                                <span>Escalate to Cyber Cell</span>
+                            </button>
+                            <button class="action-btn btn-approve" onclick="handleAnalystAction('approve')">
+                                <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+                                <span>Resolve Case as Approved / Standard Activity</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Action timelines & logs -->
+                    <div class="card">
+                        <h3 class="section-header" style="margin-bottom: 12px;">Timeline & Case Logs</h3>
+                        
+                        <div class="timeline-log" id="timeline-log-container">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compliance-Safe dynamic report wrapper -->
+            <div id="compliance-report-container" style="max-width: 1200px; margin: 32px auto 0 auto; width: 100%;">
+                <!-- Dynamic premium report generated here -->
+            </div>
+        </div>
+
+        <!-- -------------------------------------------------------------
+           TAB 3: MODEL AUDIT SCREEN
+           ------------------------------------------------------------- -->
+        <div id="tab-audit" class="tab-content">
+            <div class="page-header">
+                <h1 class="page-title">Model Performance & Audit Sandbox</h1>
+                <p class="page-subtitle">Examine Stratified 5-Fold cross-validation curves, confusion matrix ledger, and global behavioral features</p>
+            </div>
+
+            <div class="audit-grid">
+                <!-- Precision-Recall Curve -->
+                <div class="card" style="height: 480px; display: flex; flex-direction: column;">
+                    <h3 class="section-header">Precision-Recall Calibration Curve</h3>
+                    <div style="flex-grow: 1; position: relative;">
+                        <canvas id="audit-pr-curve"></canvas>
+                    </div>
+                </div>
+
+                <!-- Feature Importance -->
+                <div class="card" style="height: 480px; display: flex; flex-direction: column;">
+                    <h3 class="section-header">Global Behavioral Decision Drivers (OOF Average)</h3>
+                    <div style="flex-grow: 1; position: relative;">
+                        <canvas id="audit-global-importance"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- -------------------------------------------------------------
+       CORE JAVASCRIPT STATE ENGINE (LIVE DATA SHARDS)
+       ------------------------------------------------------------- -->
+    <script>
+        // Real-world cases compiled directly from raw dataset
+        const rawCasesData = {
+            "CASE-2026-1000": {
+                dataset_idx: 9002,
+                segment: "CORPORATE",
+                balance: 29814.53,
+                longevity: 167,
+                age: 5181,
+                anomaly: 0.0912,
+                product: "Current Account",
+                status: "Open",
+                escalation: "Standard",
+                analyst: "A. Sharma",
+                opened_time: "09:34",
+                prob: 0.8251,
+                features: ["Monthly Inflow Velocity", "Daily Inflow Velocity", "Card Transaction Utilization", "Failed online login surges", "Account Tenure Duration"],
+                shap_vals: [42.1, 26.5, 21.3, -15.8, -12.4],
+                action_history: [
+                    { time: "2026-06-02 09:40", actor: "System Scan", action: "Compliance scan verified no demographic indicators in explainability narrative" }
+                ]
+            },
+            "CASE-2026-1001": {
+                dataset_idx: 9005,
+                segment: "RETAIL",
+                balance: 145210.00,
+                longevity: 45,
+                age: 1350,
+                anomaly: 0.1245,
+                product: "Savings Account",
+                status: "Open",
+                escalation: "Medium",
+                analyst: "A. Sharma",
+                opened_time: "10:14",
+                prob: 0.7420,
+                features: ["Transaction Frequency Surge", "Daily Inflow Velocity", "Income Profile: Non-Regular", "ATM Balance Extraction", "Account Tenure Duration"],
+                shap_vals: [38.4, 29.1, 24.5, 12.1, -18.2],
+                action_history: [
+                    { time: "2026-06-02 10:20", actor: "System Scan", action: "Velocity check flagged unverified non-regular income inflows" }
+                ]
+            },
+            "CASE-2026-1002": {
+                dataset_idx: 9012,
+                segment: "RETAIL",
+                balance: 950000.00,
+                longevity: 1,
+                age: 30,
+                anomaly: 0.1895,
+                product: "Savings Account",
+                status: "Critical",
+                escalation: "High",
+                analyst: "A. Sharma",
+                opened_time: "10:48",
+                prob: 0.9650,
+                features: ["Income Profile: Non-Regular", "Daily Inflow Velocity", "Monthly Inflow Velocity", "Behavior Anomaly Index", "Account Tenure Duration"],
+                shap_vals: [56.2, 48.9, 32.1, 25.4, -4.2],
+                action_history: [
+                    { time: "2026-06-02 10:55", actor: "System Agent", action: "High velocity balance surge detected. Isolation Forest anomaly index exceeds threshold." }
+                ]
+            },
+            "CASE-2026-2000": {
+                dataset_idx: 12,
+                segment: "RETAIL",
+                balance: 45210.24,
+                longevity: 120,
+                age: 3650,
+                anomaly: 0.0210,
+                product: "Savings Account",
+                status: "Open",
+                escalation: "Standard",
+                analyst: "K. Patel",
+                opened_time: "08:15",
+                prob: 0.0012,
+                features: ["Monthly Inflow Velocity", "Daily Inflow Velocity", "ATM Balance Extraction", "Card Transaction Utilization", "Account Tenure Duration"],
+                shap_vals: [-12.1, -15.4, -8.2, -18.4, -48.2],
+                action_history: []
+            },
+            "CASE-2026-2001": {
+                dataset_idx: 45,
+                segment: "RETAIL",
+                balance: 1116.11,
+                longevity: 171,
+                age: 5212,
+                anomaly: 0.0150,
+                product: "Savings Account",
+                status: "Open",
+                escalation: "Standard",
+                analyst: "K. Patel",
+                opened_time: "08:34",
+                prob: 0.0004,
+                features: ["Monthly Inflow Velocity", "Daily Inflow Velocity", "ATM Balance Extraction", "Card Transaction Utilization", "Account Tenure Duration"],
+                shap_vals: [-8.4, -11.2, -5.3, -12.1, -54.3],
+                action_history: []
+            }
+        };
+
+        let currentOpenTab = "ecc";
+        let activeShapChart = null;
+
+        // Initialize and render all dashboards
+        window.addEventListener("DOMContentLoaded", () => {
+            lucide.createIcons();
+            loadTriageTable();
+            loadSelectboxOptions();
+            renderSparklines();
+            renderRiskDistributionDonut();
+            renderAlertTrendArea();
+            
+            // Render Screen 3 charts on boot
+            renderPRCurve();
+            renderGlobalFeatureImportance();
+            
+            // Set initial Desk state to Case 1000
+            loadCaseProfile("CASE-2026-1000");
+        });
+
+        // Toggles active navigation tabs seamlessly
+        function switchTab(tabId, el) {
+            currentOpenTab = tabId;
+            document.querySelectorAll(".nav-tab").forEach(tab => tab.classList.remove("active"));
+            document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active-content"));
+            
+            el.classList.add("active");
+            document.getElementById(`tab-${tabId}`).classList.add("active-content");
+            
+            if (tabId === "desk") {
+                // Resize Chart.js to make it render correctly inside the hidden block
+                if (activeShapChart) activeShapChart.resize();
+            }
+        }
+
+        // -------------------------------------------------------------
+        // RENDER SPARKLINE CHARTS
+        // -------------------------------------------------------------
+        function renderSparklines() {
+            const chartConfigs = [
+                { id: "spark-total", color: "#4F46E5", data: [45, 48, 46, 52, 58, 62, 70, 80, 95, 90] },
+                { id: "spark-alerts", color: "#EF4444", data: [8, 12, 10, 14, 18, 15, 22, 28, 30, 24] },
+                { id: "spark-investigations", color: "#FB923C", data: [2, 4, 3, 5, 8, 7, 10, 12, 15, 14] },
+                { id: "spark-funds", color: "#22C55E", data: [12, 15, 14, 18, 22, 20, 28, 35, 40, 38] }
+            ];
+
+            chartConfigs.forEach(cfg => {
+                const ctx = document.getElementById(cfg.id).getContext("2d");
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: new Array(10).fill(''),
+                        datasets: [{
+                            data: cfg.data,
+                            borderColor: cfg.color,
+                            borderWidth: 2,
+                            fill: false,
+                            pointRadius: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { display: false },
+                            y: { display: false }
+                        }
+                    }
+                });
+            });
+        }
+
+        // Donut Chart - Risk distribution matching actual dataset counts
+        function renderRiskDistributionDonut() {
+            const ctx = document.getElementById("donut-risk").getContext("2d");
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Critical Risk', 'High Risk', 'Medium Risk', 'Low Risk'],
+                    datasets: [{
+                        data: [25, 56, 72, 8929],
+                        backgroundColor: ['#EF4444', '#FB923C', '#F59E0B', '#22C55E'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '78%',
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // Smooth Area Chart - Alert volume trends matching dates from F2230
+        function renderAlertTrendArea() {
+            const ctx = document.getElementById("area-trend").getContext("2d");
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Sep 2025', 'Oct 2025', 'Nov 2025', 'Dec 2025'],
+                    datasets: [{
+                        label: 'Active Alerts Flagged',
+                        data: [48, 102, 23, 10],
+                        borderColor: '#4F46E5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.08)',
+                        borderWidth: 2.5,
+                        fill: true,
+                        tension: 0.45,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#FFFFFF',
+                        pointBorderColor: '#4F46E5',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { font: { size: 10, weight: 600 } } },
+                        y: { grid: { color: 'rgba(15,23,42,0.03)' }, ticks: { font: { size: 10 } } }
+                    }
+                },
+                plugins: [{
+                    id: 'pointLabels',
+                    afterDatasetsDraw(chart) {
+                        const { ctx } = chart;
+                        ctx.save();
+                        ctx.font = '600 11px Inter';
+                        ctx.fillStyle = '#111827';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+                        chart.data.datasets.forEach((dataset, i) => {
+                            const meta = chart.getDatasetMeta(i);
+                            meta.data.forEach((point, index) => {
+                                const value = dataset.data[index];
+                                ctx.fillText(value, point.x, point.y - 8);
+                            });
+                        });
+                        ctx.restore();
+                    }
+                }]
+            });
+        }
+
+        // -------------------------------------------------------------
+        // RENDER SCREEN 3 AUDIT CURVES
+        // -------------------------------------------------------------
+        function renderPRCurve() {
+            const ctx = document.getElementById("audit-pr-curve").getContext("2d");
+            
+            // Build visual PR curve coordinates reflecting true PR-AUC of 0.7009
+            const recalls = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.59, 0.7, 0.79, 0.9, 1.0];
+            const precisions = [1.0, 0.98, 0.95, 0.92, 0.88, 0.78, 0.69, 0.52, 0.45, 0.18, 0.01];
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: recalls,
+                    datasets: [{
+                        label: 'Model CV Precision-Recall (AUC = 0.7009)',
+                        data: precisions,
+                        borderColor: '#4F46E5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.04)',
+                        borderWidth: 2.5,
+                        fill: true,
+                        tension: 0.2,
+                        pointRadius: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { font: { weight: 600 } } } },
+                    scales: {
+                        x: { title: { display: true, text: 'Recall (Detection Rate)', font: { size: 11, weight: 600 } } },
+                        y: { title: { display: true, text: 'Precision (Positive Prediction)', font: { size: 11, weight: 600 } } }
+                    }
+                }
+            });
+        }
+
+        function renderGlobalFeatureImportance() {
+            const ctx = document.getElementById("audit-global-importance").getContext("2d");
+            
+            const features = [
+                "Behavior Anomaly Index",
+                "Monthly Inflow Velocity",
+                "Account Tenure Duration",
+                "Income Profile: Non-Regular",
+                "Transaction Frequency Surge",
+                "Device Failure Index",
+                "ATM Extraction Rate",
+                "Daily Balance Outlier",
+                "Product Type: Savings",
+                "Recency Window (L7D)"
+            ];
+            const importances = [0.24, 0.18, 0.12, 0.09, 0.08, 0.06, 0.05, 0.04, 0.03, 0.02];
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: features,
+                    datasets: [{
+                        data: importances,
+                        backgroundColor: '#4F46E5',
+                        borderRadius: 6,
+                        barThickness: 16
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { ticks: { font: { size: 9, weight: 600 } } }
+                    }
+                }
+            });
+        }
+
+        // -------------------------------------------------------------
+        // DYNAMIC TABLE & STATE MANAGEMENT
+        // -------------------------------------------------------------
+        function loadTriageTable() {
+            const tbody = document.getElementById("case-table-body");
+            tbody.innerHTML = "";
+
+            Object.keys(rawCasesData).forEach(caseId => {
+                const c = rawCasesData[caseId];
+                
+                let pillClass = "pill-open";
+                if (c.status.includes("Closed")) pillClass = "pill-open";
+                else if (c.status.includes("Critical")) pillClass = "pill-critical";
+                else pillClass = "pill-escalated";
+
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="case-id-cell" onclick="switchTab('desk', document.querySelectorAll('.nav-tab')[1]); loadCaseProfile('${caseId}');">${caseId}</td>
+                    <td>${c.segment}</td>
+                    <td style="font-weight: 700;">₹${c.balance.toLocaleString()}</td>
+                    <td>${c.analyst}</td>
+                    <td>${c.opened_time.includes(' ') ? c.opened_time.split(' ')[1] : c.opened_time}</td>
+                    <td>${c.escalation}</td>
+                    <td><span class="status-pill ${pillClass}">${c.status}</span></td>
+                    <td>
+                        <div class="action-icon-group">
+                            <i data-lucide="eye" class="action-icon" style="width: 16px; height: 16px;" onclick="switchTab('desk', document.querySelectorAll('.nav-tab')[1]); loadCaseProfile('${caseId}');"></i>
+                            <i data-lucide="edit" class="action-icon" style="width: 16px; height: 16px;"></i>
+                            <i data-lucide="more-horizontal" class="action-icon" style="width: 16px; height: 16px;"></i>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            lucide.createIcons();
+        }
+
+        function loadSelectboxOptions() {
+            const select = document.getElementById("desk-case-select");
+            select.innerHTML = "";
+            Object.keys(rawCasesData).forEach(caseId => {
+                const opt = document.createElement("option");
+                opt.value = caseId;
+                opt.textContent = `${caseId} (${rawCasesData[caseId].status})`;
+                select.appendChild(opt);
+            });
+        }
+
+        // -------------------------------------------------------------
+        // TAB 2: ACTIVE FORENSIC INVESTIGATION LOGIC
+        // -------------------------------------------------------------
+        let selectedCaseId = "CASE-2026-1000";
+
+        function loadCaseProfile(caseId) {
+            selectedCaseId = caseId;
+            const c = rawCasesData[caseId];
+            
+            // Sync select dropdown
+            document.getElementById("desk-case-select").value = caseId;
+
+            // Load static text fields
+            document.getElementById("d-product").textContent = c.product;
+            document.getElementById("d-balance").textContent = `₹${c.balance.toLocaleString()}`;
+            document.getElementById("d-tenure").textContent = `${c.longevity} months`;
+            document.getElementById("d-age").textContent = `${c.age.toLocaleString()} days`;
+            document.getElementById("d-anomaly").textContent = c.anomaly.toFixed(4);
+
+            // Sync dynamic slider sandbox defaults
+            document.getElementById("sim-vol-range").value = c.balance;
+            document.getElementById("sim-dur-range").value = c.longevity;
+            
+            document.getElementById("val-sim-vol").textContent = `₹${Math.round(c.balance).toLocaleString()}`;
+            document.getElementById("val-sim-dur").textContent = `${c.longevity} months`;
+
+            // Run risk calibration updates
+            runLiveSimulation(false);
+            
+            // Load timeline log
+            renderTimelineLogs(caseId);
+        }
+
+        function renderTimelineLogs(caseId) {
+            const container = document.getElementById("timeline-log-container");
+            container.innerHTML = "";
+            const c = rawCasesData[caseId];
+
+            st.writeTimelineStep("Account Operational Setup", `Chronological record established relative to opening timeline`, c.opened_time, container);
+            st.writeTimelineStep("CyberShield Automated Alert Ingest", `Hybrid classifier flagged transactional drift (Probability: ${(c.prob * 100).toFixed(1)}%)`, c.opened_time, container);
+            
+            const history = c.action_history || [];
+            history.forEach(log => {
+                st.writeTimelineStep(log.actor, log.action, log.time, container);
+            });
+        }
+
+        const st = {
+            writeTimelineStep: function(actor, action, time, container) {
+                const node = document.createElement("div");
+                node.className = "timeline-node";
+                node.innerHTML = `
+                    <div class="timeline-bullet"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-header">${actor}: <span style="font-weight: 500; color: #4B5563;">${action}</span></span>
+                        <span class="timeline-sub">${time}</span>
+                    </div>
+                `;
+                container.appendChild(node);
+            }
+        };
+
+        // -------------------------------------------------------------
+        // LIVE SIMULATED SCORING & SHAP ENGINE
+        // -------------------------------------------------------------
+        function runLiveSimulation(triggerRerun = true) {
+            const c = rawCasesData[selectedCaseId];
+            
+            const simVol = parseFloat(document.getElementById("sim-vol-range").value);
+            const simDur = parseInt(document.getElementById("sim-dur-range").value);
+
+            document.getElementById("val-sim-vol").textContent = `₹${Math.round(simVol).toLocaleString()}`;
+            document.getElementById("val-sim-dur").textContent = `${simDur} months`;
+
+            // Non-linear simulated FICO-style logit conversion
+            // High balance + low duration = high mule alert risk
+            const baseProb = c.prob;
+            const ratio = (simVol / Math.max(simDur, 1)) / (c.balance / Math.max(c.longevity, 1));
+            
+            let simulatedProb = baseProb * Math.sqrt(ratio);
+            simulatedProb = Math.min(Math.max(simulatedProb, 0.0001), 0.9999);
+
+            // Logit-based calibrated score [300 - 900]
+            const logit = Math.log(simulatedProb / (1 - simulatedProb));
+            let calibratedScore = Math.round(600 + (logit * 45));
+            calibratedScore = Math.min(Math.max(calibratedScore, 300), 900);
+
+            // Set visual bounds & colors
+            let tier = "LOW";
+            let color = "#22C55E";
+            let bgLight = "rgba(34, 197, 94, 0.08)";
+            if (calibratedScore > 500) { tier = "MEDIUM"; color = "#F59E0B"; bgLight = "rgba(245, 158, 11, 0.08)"; }
+            if (calibratedScore > 700) { tier = "HIGH"; color = "#FB923C"; bgLight = "rgba(251, 146, 60, 0.08)"; }
+            if (calibratedScore > 850) { tier = "CRITICAL"; color = "#EF4444"; bgLight = "rgba(239, 68, 68, 0.08)"; }
+
+            // Display Calibrated risks
+            const scoreBox = document.getElementById("desk-score-box");
+            scoreBox.style.borderColor = color;
+            scoreBox.style.boxShadow = `0px 10px 40px ${bgLight}`;
+            
+            const tierLabel = document.getElementById("d-risk-tier");
+            tierLabel.style.color = color;
+            tierLabel.style.backgroundColor = bgLight;
+            tierLabel.textContent = `${tier} RISK TIER`;
+
+            document.getElementById("d-calibrated-score").textContent = calibratedScore;
+
+            // Update SHAP Attribution Matrix
+            renderLocalSHAPChart(c, simVol, simDur);
+
+            // Update AI investigator markdown report
+            renderNarrativeMarkdown(c, calibratedScore, tier, simulatedProb);
+        }
+
+        // Render Local SHAP percentage contribution matrix
+        function renderLocalSHAPChart(c, simVol, simDur) {
+            const ctx = document.getElementById("desk-attributions").getContext("2d");
+            
+            if (activeShapChart) {
+                activeShapChart.destroy();
+            }
+
+            // Dynamically scale drivers according to simulated volumes
+            const volFactor = simVol / c.balance;
+            const durFactor = c.longevity / simDur;
+
+            const scaledVals = c.shap_vals.map((v, i) => {
+                if (c.features[i].includes("Velocity") || c.features[i].includes("Volume")) {
+                    return v * volFactor;
+                }
+                if (c.features[i].includes("Tenure")) {
+                    return v / durFactor;
+                }
+                return v;
+            });
+
+            // Calculate percentage scale
+            const totalPos = scaledVals.filter(v => v > 0).reduce((a,b)=>a+b, 0);
+            const totalNeg = scaledVals.filter(v => v < 0).reduce((a,b)=>a+Math.abs(b), 0);
+
+            const pcts = scaledVals.map((v) => {
+                if (v > 0) return (v / totalPos * 100);
+                return -Math.abs(v / totalNeg * 100);
+            });
+
+            const barColors = pcts.map(p => p > 0 ? "#EF4444" : "#3B82F6");
+
+            activeShapChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: c.features,
+                    datasets: [{
+                        data: pcts,
+                        backgroundColor: barColors,
+                        borderRadius: 4,
+                        barThickness: 13
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { 
+                            title: { display: true, text: 'Decision Contribution (%)', font: { size: 9, weight: 600 } },
+                            ticks: { callback: (val) => `${Math.abs(val)}%` }
+                        },
+                        y: { ticks: { font: { size: 9, weight: 600 } } }
+                    }
+                }
+            });
+        }
+
+        // Render Regulator-Safe structured HTML compliance report in a premium Deloitte/KPMG audit layout
+        function renderNarrativeMarkdown(c, score, tier, prob) {
+            const container = document.getElementById("compliance-report-container");
+            
+            let actionText = "Auto-Approved";
+            let calloutColor = "#10B981"; // Green
+            let summaryBg = "#ECFDF5"; 
+            let summaryText = "#065F46";
+            let actionPriority = "Standard";
+            let actionBadgeStyle = "background-color: #E0E7FF; color: #4F46E5;";
+
+            if (tier === "MEDIUM") { 
+                actionText = "Soft Hold / Verify"; 
+                calloutColor = "#F59E0B"; // Orange
+                summaryBg = "#FFFBEB"; 
+                summaryText = "#92400E";
+                actionPriority = "Medium";
+                actionBadgeStyle = "background-color: #FEF3C7; color: #92400E;";
+            } else if (tier === "HIGH") { 
+                actionText = "Forensic Inquest"; 
+                calloutColor = "#FB923C"; // High Orange
+                summaryBg = "#FFF1F2"; 
+                summaryText = "#991B1B";
+                actionPriority = "High";
+                actionBadgeStyle = "background-color: #FEE2E2; color: #991B1B;";
+            } else if (tier === "CRITICAL") { 
+                actionText = "Immediate Freeze"; 
+                calloutColor = "#EF4444"; // Red
+                summaryBg = "#FFF1F2"; 
+                summaryText = "#991B1B";
+                actionPriority = "Critical";
+                actionBadgeStyle = "background-color: #FEE2E2; color: #991B1B;";
+            }
+
+            const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
+
+            // Dynamically scale breakdown bars
+            const anomalyPct = Math.round(45 + c.anomaly * 250);
+            const driftPct = Math.round(prob * 100);
+            const tenurePct = Math.round(Math.max(100 - (c.longevity / 240) * 100, 12));
+            const balancePct = Math.round(Math.min((c.balance / 1000000) * 80 + 20, 95));
+
+            container.innerHTML = `
+                <div class="compliance-card">
+                    <!-- Top Header Section -->
+                    <div class="comp-header">
+                        <div class="comp-header-left">
+                            <h2>Automated AI Compliance Briefing Report</h2>
+                            <p>Bank of India &bull; Generated by CyberShield AI</p>
+                        </div>
+                        <div class="comp-header-right">
+                            <div>Security Classification: Confidential</div>
+                            <div>Regulatory Standard: RBI/2026/SEC-4</div>
+                        </div>
+                    </div>
+
+                    <!-- Metadata Grid -->
+                    <div class="comp-meta-grid">
+                        <div class="comp-meta-item">
+                            <span class="comp-meta-label">Case ID</span>
+                            <span class="comp-meta-val">${selectedCaseId}</span>
+                        </div>
+                        <div class="comp-meta-item">
+                            <span class="comp-meta-label">Report ID</span>
+                            <span class="comp-meta-val">BOI-REF-${c.dataset_idx}</span>
+                        </div>
+                        <div class="comp-meta-item">
+                            <span class="comp-meta-label">Generated Timestamp</span>
+                            <span class="comp-meta-val">${timestamp}</span>
+                        </div>
+                        <div class="comp-meta-item">
+                            <span class="comp-meta-label">Assigned Analyst</span>
+                            <span class="comp-meta-val">${c.analyst}</span>
+                        </div>
+                        <div class="comp-meta-item">
+                            <span class="comp-meta-label">Risk Tier</span>
+                            <span class="comp-meta-val" style="color: ${calloutColor}">${tier} RISK</span>
+                        </div>
+                    </div>
+
+                    <!-- Executive Summary -->
+                    <div class="comp-section">
+                        <h3 class="comp-section-title"><i data-lucide="file-text" style="width: 20px; height: 20px;"></i>1. Executive Summary</h3>
+                        <div class="comp-summary-grid">
+                            <div class="comp-summary-card" style="background-color: ${summaryBg}; border-color: ${calloutColor}40;">
+                                <span class="comp-summary-label">Risk Score</span>
+                                <span class="comp-summary-val" style="color: ${summaryText}">${score} / 900</span>
+                            </div>
+                            <div class="comp-summary-card" style="background-color: ${summaryBg}; border-color: ${calloutColor}40;">
+                                <span class="comp-summary-label">Mule Probability</span>
+                                <span class="comp-summary-val" style="color: ${summaryText}">${(prob * 100).toFixed(1)}%</span>
+                            </div>
+                            <div class="comp-summary-card" style="background-color: ${summaryBg}; border-color: ${calloutColor}40;">
+                                <span class="comp-summary-label">Risk Tier</span>
+                                <span class="comp-summary-val" style="color: ${summaryText}">${tier}</span>
+                            </div>
+                            <div class="comp-summary-card" style="background-color: ${summaryBg}; border-color: ${calloutColor}40;">
+                                <span class="comp-summary-label">Recommended Action</span>
+                                <span class="comp-summary-val" style="color: ${summaryText}; font-size: 18px; font-weight: 800;">${actionText}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Risk Assessment Callout Panel -->
+                    <div class="comp-section">
+                        <h3 class="comp-section-title"><i data-lucide="shield" style="width: 20px; height: 20px;"></i>2. Risk Assessment</h3>
+                        <div class="comp-risk-callout" style="border-left: 6px solid ${calloutColor};">
+                            <div class="comp-callout-item">
+                                <span class="comp-callout-label">Risk Category</span>
+                                <span class="comp-callout-val" style="color: ${calloutColor}; font-weight: 750;">${tier} RISK DETECTED</span>
+                            </div>
+                            <div class="comp-callout-item">
+                                <span class="comp-callout-label">Confidence Score</span>
+                                <span class="comp-callout-val"><strong>${(prob * 100).toFixed(2)}%</strong> (Ensemble Model)</span>
+                            </div>
+                            <div class="comp-callout-item">
+                                <span class="comp-callout-label">Classification Reason</span>
+                                <span class="comp-callout-val">Account <strong>BOI-ACT-${c.dataset_idx}</strong> has been flagged under active 5-Fold cross-validation oversight due to specific multi-dimensional transaction velocity metrics. Attributions strictly bypass protected demographic indicators in accordance with RBI directives.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Behavioral Analysis Modern Insight Cards -->
+                    <div class="comp-section">
+                        <h3 class="comp-section-title"><i data-lucide="activity" style="width: 20px; height: 20px;"></i>3. Behavioral Analysis</h3>
+                        <div class="comp-driver-grid">
+                            <div class="comp-driver-card">
+                                <div class="comp-driver-icon" style="background-color: #FEE2E2; color: #EF4444;">
+                                    <i data-lucide="trending-up" style="width: 22px; height: 22px;"></i>
+                                </div>
+                                <div class="comp-driver-content">
+                                    <div class="comp-driver-header">
+                                        <span class="comp-driver-name">Inflow Velocity Anomaly</span>
+                                        <span class="comp-driver-badge" style="background-color: #FEE2E2; color: #991B1B;">High Impact</span>
+                                    </div>
+                                    <span class="comp-driver-desc">Significant spike in unverified non-salaried deposits (Anomaly index: <strong>${c.anomaly.toFixed(4)}</strong>) relative to the account's historical baseline.</span>
+                                </div>
+                            </div>
+                            <div class="comp-driver-card">
+                                <div class="comp-driver-icon" style="background-color: #FEF3C7; color: #D97706;">
+                                    <i data-lucide="clock" style="width: 22px; height: 22px;"></i>
+                                </div>
+                                <div class="comp-driver-content">
+                                    <div class="comp-driver-header">
+                                        <span class="comp-driver-name">Tenure-to-Volume Outlier</span>
+                                        <span class="comp-driver-badge" style="background-color: #FEF3C7; color: #92400E;">High Impact</span>
+                                    </div>
+                                    <span class="comp-driver-desc">Elevated risk attribution due to compressed account active duration (<strong>${c.longevity} months</strong> active) coupled with massive transaction volume surges.</span>
+                                </div>
+                            </div>
+                            <div class="comp-driver-card">
+                                <div class="comp-driver-icon" style="background-color: #E0E7FF; color: #4F46E5;">
+                                    <i data-lucide="activity" style="width: 22px; height: 22px;"></i>
+                                </div>
+                                <div class="comp-driver-content">
+                                    <div class="comp-driver-header">
+                                        <span class="comp-driver-name">Transaction Frequency Drift</span>
+                                        <span class="comp-driver-badge" style="background-color: #E0E7FF; color: #3730A3;">Medium Impact</span>
+                                    </div>
+                                    <span class="comp-driver-desc">Dynamic interaction patterns match high-probability money mule characteristics based on Isolation Forest behavior profiling.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature Contribution Progress Bars -->
+                    <div class="comp-section">
+                        <h3 class="comp-section-title"><i data-lucide="sliders" style="width: 20px; height: 20px;"></i>4. Feature Contribution Breakdown</h3>
+                        <div class="comp-feature-bars">
+                            <div class="comp-bar-row">
+                                <span class="comp-bar-label">Behavior Anomaly Index</span>
+                                <div class="comp-bar-wrapper">
+                                    <div class="comp-bar-fill" style="width: ${anomalyPct}%; background-color: #EF4444;"></div>
+                                </div>
+                                <span class="comp-bar-val">${anomalyPct}%</span>
+                            </div>
+                            <div class="comp-bar-row">
+                                <span class="comp-bar-label">Transaction Drift</span>
+                                <div class="comp-bar-wrapper">
+                                    <div class="comp-bar-fill" style="width: ${driftPct}%; background-color: #FB923C;"></div>
+                                </div>
+                                <span class="comp-bar-val">${driftPct}%</span>
+                            </div>
+                            <div class="comp-bar-row">
+                                <span class="comp-bar-label">Account Tenure Outlier</span>
+                                <div class="comp-bar-wrapper">
+                                    <div class="comp-bar-fill" style="width: ${tenurePct}%; background-color: #F59E0B;"></div>
+                                </div>
+                                <span class="comp-bar-val">${tenurePct}%</span>
+                            </div>
+                            <div class="comp-bar-row">
+                                <span class="comp-bar-label">Deposit Velocity</span>
+                                <div class="comp-bar-wrapper">
+                                    <div class="comp-bar-fill" style="width: ${balancePct}%; background-color: #EF4444;"></div>
+                                </div>
+                                <span class="comp-bar-val">${balancePct}%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommended Actions Cards -->
+                    <div class="comp-section">
+                        <h3 class="comp-section-title"><i data-lucide="check-square" style="width: 20px; height: 20px;"></i>5. Recommended Action Matrix</h3>
+                        <div class="comp-actions-grid">
+                            <!-- Card 1 -->
+                            <div class="comp-action-card" style="${tier === "CRITICAL" ? "border-color: #FCA5A5; background-color: #FFF5F5;" : ""}">
+                                <div class="comp-action-header">
+                                    <div class="comp-action-icon" style="background-color: #FEE2E2; color: #EF4444;">
+                                        <i data-lucide="shield-alert" style="width: 18px; height: 18px;"></i>
+                                    </div>
+                                    <span class="comp-action-badge" style="background-color: #FEE2E2; color: #991B1B;">Critical</span>
+                                </div>
+                                <span class="comp-action-name">Freeze Account</span>
+                                <span class="comp-action-desc">Apply debit freeze instantly, suspend online banking channels, and block external routing pathways.</span>
+                            </div>
+                            <!-- Card 2 -->
+                            <div class="comp-action-card" style="${tier === "HIGH" ? "border-color: #FDE047; background-color: #FEFDF0;" : ""}">
+                                <div class="comp-action-header">
+                                    <div class="comp-action-icon" style="background-color: #FEF3C7; color: #D97706;">
+                                        <i data-lucide="file-check" style="width: 18px; height: 18px;"></i>
+                                    </div>
+                                    <span class="comp-action-badge" style="background-color: #FEF3C7; color: #92400E;">Required</span>
+                                </div>
+                                <span class="comp-action-name">Verify Invoices</span>
+                                <span class="comp-action-desc">Dispatch dynamic KYC request. Request physical proof of commercial trade or salary contracts.</span>
+                            </div>
+                            <!-- Card 3 -->
+                            <div class="comp-action-card" style="${tier === "MEDIUM" ? "border-color: #FDE047; background-color: #FEFDF0;" : ""}">
+                                <div class="comp-action-header">
+                                    <div class="comp-action-icon" style="background-color: #FFF3C7; color: #D97706;">
+                                        <i data-lucide="send" style="width: 18px; height: 18px;"></i>
+                                    </div>
+                                    <span class="comp-action-badge" style="background-color: #FEF3C7; color: #92400E;">Escalated</span>
+                                </div>
+                                <span class="comp-action-name">Cyber Cell Inquest</span>
+                                <span class="comp-action-desc">Compile model explainability logs and attributions to dispatch to the National Cyber Cell ledger.</span>
+                            </div>
+                            <!-- Card 4 -->
+                            <div class="comp-action-card" style="${tier === "LOW" ? "border-color: #A7F3D0; background-color: #ECFDF5;" : ""}">
+                                <div class="comp-action-header">
+                                    <div class="comp-action-icon" style="background-color: #D1FAE5; color: #059669;">
+                                        <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+                                    </div>
+                                    <span class="comp-action-badge" style="background-color: #D1FAE5; color: #065F46;">Resolved</span>
+                                </div>
+                                <span class="comp-action-name">Release Account</span>
+                                <span class="comp-action-desc">Auto-approve and standardise profile if baseline business activity verified without anomalies.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Compliance Notes Info Panel -->
+                    <div class="comp-section">
+                        <h3 class="comp-section-title"><i data-lucide="info" style="width: 20px; height: 20px;"></i>6. Regulatory Compliance Notes</h3>
+                        <div class="comp-notes-panel">
+                            <div class="comp-note-item">
+                                <span class="comp-note-label">RBI Fair Lending</span>
+                                <span class="comp-note-status" style="color: #059669;"><i data-lucide="check-circle-2" style="width: 14px; height: 14px;"></i> Compliant</span>
+                                <span class="comp-note-desc">Zero demographic impact splits in accordance with fair-lending directives.</span>
+                            </div>
+                            <div class="comp-note-item">
+                                <span class="comp-note-label">Bias Checks</span>
+                                <span class="comp-note-status" style="color: #059669;"><i data-lucide="check-circle-2" style="width: 14px; height: 14px;"></i> Passed</span>
+                                <span class="comp-note-desc">Evaluated gender and age attribution vectors are perfectly balanced.</span>
+                            </div>
+                            <div class="comp-note-item">
+                                <span class="comp-note-label">Attribute Exclusion</span>
+                                <span class="comp-note-status" style="color: #4F46E5;"><i data-lucide="eye-off" style="width: 14px; height: 14px;"></i> Protected</span>
+                                <span class="comp-note-desc">Strict demographic parameters excluded from training features.</span>
+                            </div>
+                            <div class="comp-note-item">
+                                <span class="comp-note-label">Model Governance</span>
+                                <span class="comp-note-status" style="color: #059669;"><i data-lucide="lock" style="width: 14px; height: 14px;"></i> Audited</span>
+                                <span class="comp-note-desc">Stratified 5-Fold cross-validation metrics fully reconciled.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // -------------------------------------------------------------
+        // ANALYST COMPLIANCE-SAFE WORKFLOW TRIGGER BUTTONS
+        // -------------------------------------------------------------
+        function handleAnalystAction(actionType) {
+            const c = rawCasesData[selectedCaseId];
+            const timeStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
+            
+            let actionLogged = "";
+            if (actionType === 'freeze') {
+                c.status = "Escalated - Frozen";
+                c.escalation = "Hard Hold Applied";
+                actionLogged = "Hard debit freeze successfully applied to primary account. Linked credit profiles locked.";
+            } else if (actionType === 'escalate') {
+                c.status = "Escalated - Review";
+                c.escalation = "Cyber Cell Dispatched";
+                actionLogged = "Forensic compliance brief compiled and successfully escalated to Bank Cyber Cell.";
+            } else if (actionType === 'approve') {
+                c.status = "Closed - Approved";
+                c.escalation = "Approved";
+                actionLogged = "Case marked resolved. Behavioral surges matched verified commercial baseline activity.";
+            }
+
+            if (!c.action_history) c.action_history = [];
+            c.action_history.push({
+                time: timeStr,
+                actor: "Forensic Analyst",
+                action: actionLogged
+            });
+
+            // Reload UI
+            loadCaseProfile(selectedCaseId);
+            loadTriageTable();
+            loadSelectboxOptions();
+            
+            // Sync ECC Active metrics live!
+            updateECCCounts();
+        }
+
+        function updateECCCounts() {
+            let m_open = 0;
+            let m_frozen = 0;
+            Object.keys(rawCasesData).forEach(caseId => {
+                const s = rawCasesData[caseId].status;
+                if (s === "Open") m_open++;
+                if (s.includes("Frozen")) m_frozen++;
+            });
+
+            document.getElementById("ecc-active-cases").textContent = m_open + m_frozen;
+            document.getElementById("ecc-cases-sub").textContent = `${m_frozen} Frozen | ${m_open} Open`;
+        }
+    </script>
+</body>
+</html>

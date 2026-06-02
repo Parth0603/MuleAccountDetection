@@ -1,0 +1,61 @@
+# Central Configuration for CyberShield suspicious Mule Account Detection Pipeline
+
+data:
+  raw_path: "dataset.csv"
+  processed_dir: "project/data/processed/"
+  train_processed_path: "project/data/processed/train_features.csv"
+  test_processed_path: "project/data/processed/test_features.csv"
+
+pipeline:
+  target_col: "F3924"
+  # Target leakage, index proxy, or row order indicators that must be dropped
+  leakage_cols:
+    - "Unnamed: 0"
+    - "F2230" # Collinear with target due to row-order creation
+    - "F3912" # Auxiliary system label (96.9% correlated with target)
+  
+  # Protect the Bank of India suggested core features from pruning
+  boi_features:
+    - "F115"
+    - "F321"
+    - "F527"
+    - "F531"
+    - "F670"
+    - "F1692"
+    - "F2082"
+    - "F2122"
+    - "F2582"
+    - "F2678"
+    - "F2737"
+    - "F2956"
+    - "F3043"
+    - "F3836"
+    - "F3887"
+    - "F3889"
+    - "F3891"
+    - "F3894"
+
+  # Missing values pruning threshold (drop if > 80% null, unless in boi_features)
+  null_threshold: 0.80
+  
+  # Standardize all date values relative to this reporting baseline
+  date_baseline: "2025-12-31"
+
+features:
+  selection:
+    n_features_to_select: 150 # Pick top predictive behavior features
+    variance_threshold: 0.01
+
+anomaly_detection:
+  n_estimators: 150
+  contamination: 0.01 # Roughly maps to fraud distribution
+  random_state: 42
+
+xgboost:
+  n_estimators: 200
+  learning_rate: 0.05
+  max_depth: 6
+  subsample: 0.8
+  colsample_bytree: 0.8
+  scale_pos_weight: 111.0 # Calibrated to target class ratio 9001/81
+  random_state: 42

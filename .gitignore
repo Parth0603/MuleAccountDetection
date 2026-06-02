@@ -1,0 +1,40 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python Cache & Compiled Code
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ipynb_checkpoints/
+
+# IDE Caches & Local Configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.env
+.env.local
+.env.development
+.env.production
+
+# OS System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Large Tabular Datasets (Prevents GitHub Push Failures > 100MB)
+dataset.csv
+
+# System generated local sandbox files
+.gemini/
+.tempmediaStorage/
+scratch/

@@ -1,0 +1,1155 @@
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (3, 9)
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:46] Identified 1 fully empty columns.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:57] Identified 1 constant (zero-variance) columns to drop.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:68] Identified 0 columns exceeding null threshold of 80.0%.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 2 features.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (3, 9)
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (3, 6)
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (3, 2)
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:37] Identified 0 target leakage/index columns to drop: []
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:46] Identified 0 fully empty columns.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:57] Identified 0 constant (zero-variance) columns to drop.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:68] Identified 0 columns exceeding null threshold of 80.0%.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 0 features.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (3, 2)
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 16:53:38] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (3, 3)
+[2026-06-02 16:53:38] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (3, 4)
+[2026-06-02 16:53:38] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: []
+[2026-06-02 16:53:38] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 16:53:38] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 16:53:38] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (3, 4)
+[2026-06-02 16:53:38] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 16:53:38] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 16:53:38] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 16:53:38] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 16:53:38] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (3, 7)
+[2026-06-02 17:00:06] INFO [mule_detection:index.py:18] ======================================================================
+[2026-06-02 17:00:06] INFO [mule_detection:index.py:20] CYBERSHIELD: SUSPICIOUS MULE ACCOUNT DETECTION PIPELINE
+[2026-06-02 17:00:06] INFO [mule_detection:index.py:21] ======================================================================
+[2026-06-02 17:00:06] INFO [mule_detection:index.py:30] Successfully loaded system configurations.
+[2026-06-02 17:00:06] INFO [mule_detection:index.py:38] Ingesting raw dataset from: dataset.csv
+[2026-06-02 17:00:09] INFO [mule_detection:index.py:40] Raw Ingestion Complete. Ingested Shape: (9082, 3925)
+[2026-06-02 17:00:09] INFO [mule_detection:index.py:43] Initializing DataCleaner...
+[2026-06-02 17:00:09] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 17:00:09] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 17:00:09] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 17:00:09] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 17:00:09] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 17:00:10] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 17:00:10] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 17:00:10] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3925)
+[2026-06-02 17:00:11] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:00:11] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3193)
+[2026-06-02 17:00:11] INFO [mule_detection:index.py:54] Initializing FeatureEngineer...
+[2026-06-02 17:00:11] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 17:00:11] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 17:00:11] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 17:00:12] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 17:00:12] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 17:00:12] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3193)
+[2026-06-02 17:00:13] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:00:13] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:00:13] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:00:13] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:00:13] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:00:13] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3230)
+[2026-06-02 17:00:13] INFO [mule_detection:index.py:65] Initializing FeatureSelector...
+[2026-06-02 17:00:14] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 17:00:14] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 17:00:15] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 17:00:15] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 17:00:15] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 169)
+[2026-06-02 17:00:15] INFO [mule_detection:index.py:72] Feature Selection complete. Modeling features dimension: (9082, 169)
+[2026-06-02 17:00:15] INFO [mule_detection:index.py:79] Persisting engineered feature matrix to: project/data/processed/engineered_features.csv
+[2026-06-02 17:00:15] INFO [mule_detection:index.py:81] Successfully persisted processed dataset.
+[2026-06-02 17:00:15] INFO [mule_detection:index.py:84] Initializing Model Pipeline Sandbox...
+[2026-06-02 17:00:15] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 17:00:15] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 17:00:16] INFO [mule_detection:pipeline.py:130] Fold 1 Metrics: PR-AUC: 0.6182 | Recall@1%FPR: 0.6875
+[2026-06-02 17:00:16] INFO [mule_detection:pipeline.py:96] Training FOLD 2/5...
+[2026-06-02 17:00:16] INFO [mule_detection:pipeline.py:130] Fold 2 Metrics: PR-AUC: 0.6902 | Recall@1%FPR: 0.7647
+[2026-06-02 17:00:16] INFO [mule_detection:pipeline.py:96] Training FOLD 3/5...
+[2026-06-02 17:00:17] INFO [mule_detection:pipeline.py:130] Fold 3 Metrics: PR-AUC: 0.7397 | Recall@1%FPR: 0.7500
+[2026-06-02 17:00:17] INFO [mule_detection:pipeline.py:96] Training FOLD 4/5...
+[2026-06-02 17:00:18] INFO [mule_detection:pipeline.py:130] Fold 4 Metrics: PR-AUC: 0.9006 | Recall@1%FPR: 1.0000
+[2026-06-02 17:00:18] INFO [mule_detection:pipeline.py:96] Training FOLD 5/5...
+[2026-06-02 17:00:18] INFO [mule_detection:pipeline.py:130] Fold 5 Metrics: PR-AUC: 0.5329 | Recall@1%FPR: 0.8125
+[2026-06-02 17:00:18] INFO [mule_detection:pipeline.py:136] OOF Cross-Validation PR-AUC: 0.7009
+[2026-06-02 17:00:18] INFO [mule_detection:pipeline.py:137] OOF Cross-Validation Recall@1%FPR: 0.7901
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:90] ======================================================================
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:91] OOF CROSS-VALIDATION PERFORMANCE METRICS
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:92] ======================================================================
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:93] PR-AUC Score (Area Under Precision-Recall): 0.700915
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:94] Recall at 1% False Positive Rate (FPR):    79.01%
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:95] F-Beta Score (Recall weighted beta=2):     0.610687
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:96] Legitimate Case Count (Class 0):          9001
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:97] Fraudulent Mule Case Count (Class 1):      81
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:98] Successfully Detected Mule Accounts (TP):  48
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:99] False Alarms (FP):                        21
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:100] ======================================================================
+[2026-06-02 17:00:18] INFO [mule_detection:index.py:103] Demonstrating Calibrated Risk Score & AI Investigator Reporting...
+[2026-06-02 17:00:18] INFO [mule_detection:describer.py:24] Successfully initialized SHAP TreeExplainer.
+[2026-06-02 17:00:19] INFO [mule_detection:index.py:122] Generated CyberShield AI Investigator Report Demonstration:
+
+[2026-06-02 17:00:19] INFO [mule_detection:index.py:131] Demo CyberShield report successfully saved to: project/reports\sample_investigator_report.md
+[2026-06-02 17:01:14] INFO [mule_detection:index.py:18] ======================================================================
+[2026-06-02 17:01:14] INFO [mule_detection:index.py:20] CYBERSHIELD: SUSPICIOUS MULE ACCOUNT DETECTION PIPELINE
+[2026-06-02 17:01:14] INFO [mule_detection:index.py:21] ======================================================================
+[2026-06-02 17:01:14] INFO [mule_detection:index.py:30] Successfully loaded system configurations.
+[2026-06-02 17:01:14] INFO [mule_detection:index.py:38] Ingesting raw dataset from: dataset.csv
+[2026-06-02 17:01:16] INFO [mule_detection:index.py:40] Raw Ingestion Complete. Ingested Shape: (9082, 3925)
+[2026-06-02 17:01:16] INFO [mule_detection:index.py:43] Initializing DataCleaner...
+[2026-06-02 17:01:16] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 17:01:16] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 17:01:17] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 17:01:17] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 17:01:17] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 17:01:17] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 17:01:17] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 17:01:17] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3925)
+[2026-06-02 17:01:18] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:01:18] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3193)
+[2026-06-02 17:01:18] INFO [mule_detection:index.py:54] Initializing FeatureEngineer...
+[2026-06-02 17:01:18] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 17:01:18] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 17:01:18] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 17:01:20] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 17:01:20] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 17:01:20] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3193)
+[2026-06-02 17:01:20] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:01:20] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:01:20] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:01:20] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:01:21] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:01:21] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3230)
+[2026-06-02 17:01:21] INFO [mule_detection:index.py:65] Initializing FeatureSelector...
+[2026-06-02 17:01:21] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 17:01:21] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 17:01:21] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 17:01:21] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 17:01:21] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 169)
+[2026-06-02 17:01:21] INFO [mule_detection:index.py:72] Feature Selection complete. Modeling features dimension: (9082, 169)
+[2026-06-02 17:01:21] INFO [mule_detection:index.py:79] Persisting engineered feature matrix to: project/data/processed/engineered_features.csv
+[2026-06-02 17:01:22] INFO [mule_detection:index.py:81] Successfully persisted processed dataset.
+[2026-06-02 17:01:22] INFO [mule_detection:index.py:84] Initializing Model Pipeline Sandbox...
+[2026-06-02 17:01:22] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 17:01:22] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 17:01:23] INFO [mule_detection:pipeline.py:130] Fold 1 Metrics: PR-AUC: 0.6182 | Recall@1%FPR: 0.6875
+[2026-06-02 17:01:23] INFO [mule_detection:pipeline.py:96] Training FOLD 2/5...
+[2026-06-02 17:01:23] INFO [mule_detection:pipeline.py:130] Fold 2 Metrics: PR-AUC: 0.6902 | Recall@1%FPR: 0.7647
+[2026-06-02 17:01:23] INFO [mule_detection:pipeline.py:96] Training FOLD 3/5...
+[2026-06-02 17:01:24] INFO [mule_detection:pipeline.py:130] Fold 3 Metrics: PR-AUC: 0.7397 | Recall@1%FPR: 0.7500
+[2026-06-02 17:01:24] INFO [mule_detection:pipeline.py:96] Training FOLD 4/5...
+[2026-06-02 17:01:24] INFO [mule_detection:pipeline.py:130] Fold 4 Metrics: PR-AUC: 0.9006 | Recall@1%FPR: 1.0000
+[2026-06-02 17:01:24] INFO [mule_detection:pipeline.py:96] Training FOLD 5/5...
+[2026-06-02 17:01:25] INFO [mule_detection:pipeline.py:130] Fold 5 Metrics: PR-AUC: 0.5329 | Recall@1%FPR: 0.8125
+[2026-06-02 17:01:25] INFO [mule_detection:pipeline.py:136] OOF Cross-Validation PR-AUC: 0.7009
+[2026-06-02 17:01:25] INFO [mule_detection:pipeline.py:137] OOF Cross-Validation Recall@1%FPR: 0.7901
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:90] ======================================================================
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:91] OOF CROSS-VALIDATION PERFORMANCE METRICS
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:92] ======================================================================
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:93] PR-AUC Score (Area Under Precision-Recall): 0.700915
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:94] Recall at 1% False Positive Rate (FPR):    79.01%
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:95] F-Beta Score (Recall weighted beta=2):     0.610687
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:96] Legitimate Case Count (Class 0):          9001
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:97] Fraudulent Mule Case Count (Class 1):      81
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:98] Successfully Detected Mule Accounts (TP):  48
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:99] False Alarms (FP):                        21
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:100] ======================================================================
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:103] Demonstrating Calibrated Risk Score & AI Investigator Reporting...
+[2026-06-02 17:01:25] INFO [mule_detection:describer.py:24] Successfully initialized SHAP TreeExplainer.
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:122] Generated CyberShield AI Investigator Report Demonstration:
+
+[2026-06-02 17:01:25] INFO [mule_detection:index.py:131] Demo CyberShield report successfully saved to: project/reports\sample_investigator_report.md
+[2026-06-02 17:35:34] INFO [mule_detection:index.py:18] ======================================================================
+[2026-06-02 17:35:34] INFO [mule_detection:index.py:20] CYBERSHIELD: SUSPICIOUS MULE ACCOUNT DETECTION PIPELINE
+[2026-06-02 17:35:34] INFO [mule_detection:index.py:21] ======================================================================
+[2026-06-02 17:35:34] INFO [mule_detection:index.py:30] Successfully loaded system configurations.
+[2026-06-02 17:35:34] INFO [mule_detection:index.py:38] Ingesting raw dataset from: dataset.csv
+[2026-06-02 17:35:40] INFO [mule_detection:index.py:40] Raw Ingestion Complete. Ingested Shape: (9082, 3925)
+[2026-06-02 17:35:40] INFO [mule_detection:index.py:43] Initializing DataCleaner...
+[2026-06-02 17:35:40] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 17:35:40] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 17:35:41] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 17:35:42] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 17:35:42] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 17:35:43] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 17:35:44] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 17:35:44] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3925)
+[2026-06-02 17:35:47] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:35:47] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3193)
+[2026-06-02 17:35:47] INFO [mule_detection:index.py:54] Initializing FeatureEngineer...
+[2026-06-02 17:35:47] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 17:35:47] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 17:35:47] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 17:35:48] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 17:35:48] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 17:35:48] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3193)
+[2026-06-02 17:35:49] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:35:49] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:35:49] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:35:49] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:35:49] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:35:49] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3230)
+[2026-06-02 17:35:49] INFO [mule_detection:index.py:65] Initializing FeatureSelector...
+[2026-06-02 17:35:49] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 17:35:50] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 17:35:51] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 17:35:51] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 17:35:51] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 169)
+[2026-06-02 17:35:51] INFO [mule_detection:index.py:72] Feature Selection complete. Modeling features dimension: (9082, 169)
+[2026-06-02 17:35:51] INFO [mule_detection:index.py:79] Persisting engineered feature matrix to: project/data/processed/engineered_features.csv
+[2026-06-02 17:35:52] INFO [mule_detection:index.py:81] Successfully persisted processed dataset.
+[2026-06-02 17:35:52] INFO [mule_detection:index.py:84] Initializing Model Pipeline Sandbox...
+[2026-06-02 17:35:52] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 17:35:52] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 17:35:53] INFO [mule_detection:pipeline.py:130] Fold 1 Metrics: PR-AUC: 0.6182 | Recall@1%FPR: 0.6875
+[2026-06-02 17:35:53] INFO [mule_detection:pipeline.py:96] Training FOLD 2/5...
+[2026-06-02 17:35:54] INFO [mule_detection:pipeline.py:130] Fold 2 Metrics: PR-AUC: 0.6902 | Recall@1%FPR: 0.7647
+[2026-06-02 17:35:54] INFO [mule_detection:pipeline.py:96] Training FOLD 3/5...
+[2026-06-02 17:35:55] INFO [mule_detection:pipeline.py:130] Fold 3 Metrics: PR-AUC: 0.7397 | Recall@1%FPR: 0.7500
+[2026-06-02 17:35:55] INFO [mule_detection:pipeline.py:96] Training FOLD 4/5...
+[2026-06-02 17:35:56] INFO [mule_detection:pipeline.py:130] Fold 4 Metrics: PR-AUC: 0.9006 | Recall@1%FPR: 1.0000
+[2026-06-02 17:35:56] INFO [mule_detection:pipeline.py:96] Training FOLD 5/5...
+[2026-06-02 17:35:58] INFO [mule_detection:pipeline.py:130] Fold 5 Metrics: PR-AUC: 0.5329 | Recall@1%FPR: 0.8125
+[2026-06-02 17:35:58] INFO [mule_detection:pipeline.py:136] OOF Cross-Validation PR-AUC: 0.7009
+[2026-06-02 17:35:58] INFO [mule_detection:pipeline.py:137] OOF Cross-Validation Recall@1%FPR: 0.7901
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:90] ======================================================================
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:91] OOF CROSS-VALIDATION PERFORMANCE METRICS
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:92] ======================================================================
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:93] PR-AUC Score (Area Under Precision-Recall): 0.700915
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:94] Recall at 1% False Positive Rate (FPR):    79.01%
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:95] F-Beta Score (Recall weighted beta=2):     0.610687
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:96] Legitimate Case Count (Class 0):          9001
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:97] Fraudulent Mule Case Count (Class 1):      81
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:98] Successfully Detected Mule Accounts (TP):  48
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:99] False Alarms (FP):                        21
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:100] ======================================================================
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:103] Demonstrating Calibrated Risk Score & AI Investigator Reporting...
+[2026-06-02 17:35:58] INFO [mule_detection:describer.py:24] Successfully initialized SHAP TreeExplainer.
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:122] Generated CyberShield AI Investigator Report Demonstration:
+
+[2026-06-02 17:35:58] INFO [mule_detection:index.py:131] Demo CyberShield report successfully saved to: project/reports\sample_investigator_report.md
+[2026-06-02 17:36:46] INFO [mule_detection:index.py:18] ======================================================================
+[2026-06-02 17:36:46] INFO [mule_detection:index.py:20] CYBERSHIELD: SUSPICIOUS MULE ACCOUNT DETECTION PIPELINE
+[2026-06-02 17:36:46] INFO [mule_detection:index.py:21] ======================================================================
+[2026-06-02 17:36:46] INFO [mule_detection:index.py:30] Successfully loaded system configurations.
+[2026-06-02 17:36:46] INFO [mule_detection:index.py:38] Ingesting raw dataset from: dataset.csv
+[2026-06-02 17:36:51] INFO [mule_detection:index.py:40] Raw Ingestion Complete. Ingested Shape: (9082, 3925)
+[2026-06-02 17:36:51] INFO [mule_detection:index.py:43] Initializing DataCleaner...
+[2026-06-02 17:36:51] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 17:36:51] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 17:36:51] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 17:36:52] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 17:36:52] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 17:36:53] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 17:36:54] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 17:36:54] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3925)
+[2026-06-02 17:36:56] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:36:56] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3193)
+[2026-06-02 17:36:56] INFO [mule_detection:index.py:54] Initializing FeatureEngineer...
+[2026-06-02 17:36:56] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 17:36:56] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 17:36:56] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 17:36:58] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 17:36:58] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 17:36:58] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3193)
+[2026-06-02 17:36:58] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:36:59] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:36:59] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:36:59] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:36:59] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:36:59] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3230)
+[2026-06-02 17:36:59] INFO [mule_detection:index.py:65] Initializing FeatureSelector...
+[2026-06-02 17:36:59] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 17:36:59] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 17:37:00] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 17:37:00] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 17:37:00] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 169)
+[2026-06-02 17:37:00] INFO [mule_detection:index.py:72] Feature Selection complete. Modeling features dimension: (9082, 169)
+[2026-06-02 17:37:00] INFO [mule_detection:index.py:79] Persisting engineered feature matrix to: project/data/processed/engineered_features.csv
+[2026-06-02 17:37:01] INFO [mule_detection:index.py:81] Successfully persisted processed dataset.
+[2026-06-02 17:37:01] INFO [mule_detection:index.py:84] Initializing Model Pipeline Sandbox...
+[2026-06-02 17:37:01] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 17:37:01] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 17:37:02] INFO [mule_detection:pipeline.py:130] Fold 1 Metrics: PR-AUC: 0.6182 | Recall@1%FPR: 0.6875
+[2026-06-02 17:37:02] INFO [mule_detection:pipeline.py:96] Training FOLD 2/5...
+[2026-06-02 17:37:04] INFO [mule_detection:pipeline.py:130] Fold 2 Metrics: PR-AUC: 0.6902 | Recall@1%FPR: 0.7647
+[2026-06-02 17:37:04] INFO [mule_detection:pipeline.py:96] Training FOLD 3/5...
+[2026-06-02 17:37:05] INFO [mule_detection:pipeline.py:130] Fold 3 Metrics: PR-AUC: 0.7397 | Recall@1%FPR: 0.7500
+[2026-06-02 17:37:05] INFO [mule_detection:pipeline.py:96] Training FOLD 4/5...
+[2026-06-02 17:37:07] INFO [mule_detection:pipeline.py:130] Fold 4 Metrics: PR-AUC: 0.9006 | Recall@1%FPR: 1.0000
+[2026-06-02 17:37:07] INFO [mule_detection:pipeline.py:96] Training FOLD 5/5...
+[2026-06-02 17:37:09] INFO [mule_detection:pipeline.py:130] Fold 5 Metrics: PR-AUC: 0.5329 | Recall@1%FPR: 0.8125
+[2026-06-02 17:37:09] INFO [mule_detection:pipeline.py:136] OOF Cross-Validation PR-AUC: 0.7009
+[2026-06-02 17:37:09] INFO [mule_detection:pipeline.py:137] OOF Cross-Validation Recall@1%FPR: 0.7901
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:90] ======================================================================
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:91] OOF CROSS-VALIDATION PERFORMANCE METRICS
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:92] ======================================================================
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:93] PR-AUC Score (Area Under Precision-Recall): 0.700915
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:94] Recall at 1% False Positive Rate (FPR):    79.01%
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:95] F-Beta Score (Recall weighted beta=2):     0.610687
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:96] Legitimate Case Count (Class 0):          9001
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:97] Fraudulent Mule Case Count (Class 1):      81
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:98] Successfully Detected Mule Accounts (TP):  48
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:99] False Alarms (FP):                        21
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:100] ======================================================================
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:103] Demonstrating Calibrated Risk Score & AI Investigator Reporting...
+[2026-06-02 17:37:09] INFO [mule_detection:describer.py:24] Successfully initialized SHAP TreeExplainer.
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:122] Generated CyberShield AI Investigator Report Demonstration:
+
+[2026-06-02 17:37:09] INFO [mule_detection:index.py:131] Demo CyberShield report successfully saved to: project/reports\sample_investigator_report.md
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (3, 9)
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:46] Identified 1 fully empty columns.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:57] Identified 1 constant (zero-variance) columns to drop.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:68] Identified 0 columns exceeding null threshold of 80.0%.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 2 features.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (3, 9)
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (3, 6)
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (3, 2)
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:37] Identified 0 target leakage/index columns to drop: []
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:46] Identified 0 fully empty columns.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:57] Identified 0 constant (zero-variance) columns to drop.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:68] Identified 0 columns exceeding null threshold of 80.0%.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 0 features.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (3, 2)
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:39:18] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (3, 3)
+[2026-06-02 17:39:18] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (3, 4)
+[2026-06-02 17:39:18] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: []
+[2026-06-02 17:39:18] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 17:39:18] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 17:39:18] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (3, 4)
+[2026-06-02 17:39:18] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:39:18] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:39:18] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:39:18] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:39:18] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (3, 7)
+[2026-06-02 17:51:31] INFO [mule_detection:server.py:57] Starting up CyberShield API Server...
+[2026-06-02 17:51:31] INFO [mule_detection:server.py:67] Startup Ingestion: Loading dataset.csv to fit pipeline...
+[2026-06-02 17:51:39] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 17:51:39] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 17:51:42] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 17:51:52] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 17:51:53] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 17:51:53] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 17:51:55] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 17:51:55] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3924)
+[2026-06-02 17:52:01] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:52:01] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3192)
+[2026-06-02 17:52:01] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 17:52:01] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 17:52:01] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 17:52:04] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 17:52:04] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 17:52:04] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3192)
+[2026-06-02 17:52:05] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:52:06] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:52:06] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:52:06] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:52:06] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:52:06] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3229)
+[2026-06-02 17:52:06] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 17:52:07] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 17:52:08] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 17:52:08] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 17:52:09] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 168)
+[2026-06-02 17:52:09] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 17:52:09] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 17:52:17] INFO [mule_detection:pipeline.py:130] Fold 1 Metrics: PR-AUC: 0.6182 | Recall@1%FPR: 0.6875
+[2026-06-02 17:52:17] INFO [mule_detection:pipeline.py:96] Training FOLD 2/5...
+[2026-06-02 17:52:23] INFO [mule_detection:pipeline.py:130] Fold 2 Metrics: PR-AUC: 0.6902 | Recall@1%FPR: 0.7647
+[2026-06-02 17:52:23] INFO [mule_detection:pipeline.py:96] Training FOLD 3/5...
+[2026-06-02 17:52:30] INFO [mule_detection:pipeline.py:130] Fold 3 Metrics: PR-AUC: 0.7397 | Recall@1%FPR: 0.7500
+[2026-06-02 17:52:30] INFO [mule_detection:pipeline.py:96] Training FOLD 4/5...
+[2026-06-02 17:52:32] INFO [mule_detection:pipeline.py:130] Fold 4 Metrics: PR-AUC: 0.9006 | Recall@1%FPR: 1.0000
+[2026-06-02 17:52:32] INFO [mule_detection:pipeline.py:96] Training FOLD 5/5...
+[2026-06-02 17:52:34] INFO [mule_detection:pipeline.py:130] Fold 5 Metrics: PR-AUC: 0.5329 | Recall@1%FPR: 0.8125
+[2026-06-02 17:52:34] INFO [mule_detection:pipeline.py:136] OOF Cross-Validation PR-AUC: 0.7009
+[2026-06-02 17:52:34] INFO [mule_detection:pipeline.py:137] OOF Cross-Validation Recall@1%FPR: 0.7901
+[2026-06-02 17:52:34] INFO [mule_detection:describer.py:24] Successfully initialized SHAP TreeExplainer.
+[2026-06-02 17:52:34] INFO [mule_detection:server.py:98] 🛡️ CyberShield API Pipeline fit successfully! Server is ready.
+[2026-06-02 17:57:53] INFO [mule_detection:server.py:57] Starting up CyberShield API Server...
+[2026-06-02 17:57:53] INFO [mule_detection:server.py:67] Startup Ingestion: Loading dataset.csv to fit pipeline...
+[2026-06-02 17:58:06] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 17:58:06] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 17:58:07] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 17:58:08] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 17:58:10] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 17:58:10] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 17:58:13] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 17:58:13] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3924)
+[2026-06-02 17:58:17] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:58:17] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3192)
+[2026-06-02 17:58:17] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 17:58:17] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 17:58:17] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 17:58:19] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 17:58:19] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 17:58:19] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3192)
+[2026-06-02 17:58:19] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:58:19] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:58:19] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:58:19] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:58:19] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:58:19] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3229)
+[2026-06-02 17:58:19] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 17:58:20] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 17:58:21] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 17:58:21] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 17:58:21] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 168)
+[2026-06-02 17:58:21] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 17:58:21] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 17:58:58] INFO [mule_detection:server.py:57] Starting up CyberShield API Server...
+[2026-06-02 17:58:58] INFO [mule_detection:server.py:67] Startup Ingestion: Loading dataset.csv to fit pipeline...
+[2026-06-02 17:59:04] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 17:59:04] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 17:59:04] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 17:59:05] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 17:59:06] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 17:59:06] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 17:59:07] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 17:59:07] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3924)
+[2026-06-02 17:59:10] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:10] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3192)
+[2026-06-02 17:59:10] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 17:59:10] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 17:59:10] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 17:59:11] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 17:59:11] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 17:59:11] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3192)
+[2026-06-02 17:59:12] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:12] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:12] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:12] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:12] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:12] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3229)
+[2026-06-02 17:59:12] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 17:59:13] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 17:59:14] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 17:59:14] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 17:59:14] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 168)
+[2026-06-02 17:59:14] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 17:59:14] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 17:59:15] INFO [mule_detection:pipeline.py:130] Fold 1 Metrics: PR-AUC: 0.6182 | Recall@1%FPR: 0.6875
+[2026-06-02 17:59:15] INFO [mule_detection:pipeline.py:96] Training FOLD 2/5...
+[2026-06-02 17:59:17] INFO [mule_detection:pipeline.py:130] Fold 2 Metrics: PR-AUC: 0.6902 | Recall@1%FPR: 0.7647
+[2026-06-02 17:59:17] INFO [mule_detection:pipeline.py:96] Training FOLD 3/5...
+[2026-06-02 17:59:18] INFO [mule_detection:pipeline.py:130] Fold 3 Metrics: PR-AUC: 0.7397 | Recall@1%FPR: 0.7500
+[2026-06-02 17:59:18] INFO [mule_detection:pipeline.py:96] Training FOLD 4/5...
+[2026-06-02 17:59:19] INFO [mule_detection:pipeline.py:130] Fold 4 Metrics: PR-AUC: 0.9006 | Recall@1%FPR: 1.0000
+[2026-06-02 17:59:19] INFO [mule_detection:pipeline.py:96] Training FOLD 5/5...
+[2026-06-02 17:59:21] INFO [mule_detection:pipeline.py:130] Fold 5 Metrics: PR-AUC: 0.5329 | Recall@1%FPR: 0.8125
+[2026-06-02 17:59:21] INFO [mule_detection:pipeline.py:136] OOF Cross-Validation PR-AUC: 0.7009
+[2026-06-02 17:59:21] INFO [mule_detection:pipeline.py:137] OOF Cross-Validation Recall@1%FPR: 0.7901
+[2026-06-02 17:59:21] INFO [mule_detection:describer.py:24] Successfully initialized SHAP TreeExplainer.
+[2026-06-02 17:59:21] INFO [mule_detection:server.py:98] CyberShield API Pipeline fit successfully! Server is ready.
+[2026-06-02 17:59:28] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:30] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:30] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:30] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:30] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:30] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:30] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:30] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:30] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:30] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:30] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:30] ERROR [mule_detection:server.py:155] Error predicting instance: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F2285: object, F2481: object, F2578: object, F2678: object, F2779: object, F3043: object
+[2026-06-02 17:59:30] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:31] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:31] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:31] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:31] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:31] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:31] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:31] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:31] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:31] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:31] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:31] ERROR [mule_detection:server.py:182] Error generating SHAP explainability: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F2285: object, F2481: object, F2578: object, F2678: object, F2779: object, F3043: object
+[2026-06-02 17:59:31] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:33] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:33] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:33] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:33] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:33] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:33] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:33] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:33] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:33] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:33] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:33] ERROR [mule_detection:server.py:213] Error compiling AI investigator report: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F2285: object, F2481: object, F2578: object, F2678: object, F2779: object, F3043: object
+[2026-06-02 17:59:33] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:34] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:34] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:34] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:34] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:34] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:34] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:34] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:34] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:34] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:34] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:35] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:36] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:36] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:36] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:36] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:36] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:36] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:36] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:36] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:36] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:36] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:37] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:38] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:38] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:38] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:38] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:38] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:38] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:38] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:38] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:38] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:38] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:38] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:40] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:40] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:40] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:40] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:40] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:40] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:40] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:40] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:40] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:40] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:40] ERROR [mule_detection:server.py:155] Error predicting instance: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F3043: object
+[2026-06-02 17:59:40] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:41] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:41] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:41] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:41] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:42] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:42] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:42] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:42] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:42] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:42] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:42] ERROR [mule_detection:server.py:182] Error generating SHAP explainability: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F3043: object
+[2026-06-02 17:59:42] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:43] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:43] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:43] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:43] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:43] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:43] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:43] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:43] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:43] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:43] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:43] ERROR [mule_detection:server.py:213] Error compiling AI investigator report: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F3043: object
+[2026-06-02 17:59:43] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:45] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:45] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:45] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:45] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:45] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:45] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:45] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:45] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:45] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:45] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:45] ERROR [mule_detection:server.py:155] Error predicting instance: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F2285: object, F2481: object, F2578: object, F2678: object, F2779: object, F3043: object
+[2026-06-02 17:59:45] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:46] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:46] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:46] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:46] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:46] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:46] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:46] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:46] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:46] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:46] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:46] ERROR [mule_detection:server.py:182] Error generating SHAP explainability: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F2285: object, F2481: object, F2578: object, F2678: object, F2779: object, F3043: object
+[2026-06-02 17:59:46] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:48] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:48] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:48] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:48] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:48] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:48] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:48] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:48] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:48] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:48] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:48] ERROR [mule_detection:server.py:213] Error compiling AI investigator report: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F2285: object, F2481: object, F2578: object, F2678: object, F2779: object, F3043: object
+[2026-06-02 17:59:48] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:50] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:50] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:50] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:50] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:50] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:50] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:50] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:50] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:50] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:50] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:50] ERROR [mule_detection:server.py:155] Error predicting instance: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F59: object, F61: object, F64: object, F109: object, F111: object, F114: object, F115: object, F116: object, F117: object, F120: object, F121: object, F122: object, F123: object, F126: object, F157: object, F158: object, F159: object, F160: object, F161: object, F162: object, F223: object, F224: object, F225: object, F228: object, F229: object, F230: object, F231: object, F234: object, F265: object, F266: object, F267: object, F268: object, F269: object, F270: object, F321: object, F527: object, F531: object, F670: object, F778: object, F844: object, F850: object, F886: object, F994: object, F996: object, F1102: object, F1104: object, F1212: object, F1320: object, F1428: object, F1492: object, F1498: object, F1536: object, F1692: object, F1926: object, F1932: object, F1966: object, F1968: object, F2034: object, F2040: object, F2074: object, F2076: object, F2082: object, F2122: object, F2142: object, F2148: object, F2182: object, F2184: object, F2285: object, F2481: object, F2578: object, F2582: object, F2678: object, F2686: object, F2737: object, F2779: object, F2956: object, F3043: object, F3502: object, F3504: object, F3532: object, F3534: object, F3610: object, F3612: object, F3640: object, F3642: object, F3748: object, F3750: object, F3887: object, F3894: object, F3898: object, F3908: object, F3913: object, F3914: object, F_balance_velocity_per_month: object
+[2026-06-02 17:59:50] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:52] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:52] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:52] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:52] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:52] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:52] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:52] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:52] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:52] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:52] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:52] ERROR [mule_detection:server.py:182] Error generating SHAP explainability: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F59: object, F61: object, F64: object, F109: object, F111: object, F114: object, F115: object, F116: object, F117: object, F120: object, F121: object, F122: object, F123: object, F126: object, F157: object, F158: object, F159: object, F160: object, F161: object, F162: object, F223: object, F224: object, F225: object, F228: object, F229: object, F230: object, F231: object, F234: object, F265: object, F266: object, F267: object, F268: object, F269: object, F270: object, F321: object, F527: object, F531: object, F670: object, F778: object, F844: object, F850: object, F886: object, F994: object, F996: object, F1102: object, F1104: object, F1212: object, F1320: object, F1428: object, F1492: object, F1498: object, F1536: object, F1692: object, F1926: object, F1932: object, F1966: object, F1968: object, F2034: object, F2040: object, F2074: object, F2076: object, F2082: object, F2122: object, F2142: object, F2148: object, F2182: object, F2184: object, F2285: object, F2481: object, F2578: object, F2582: object, F2678: object, F2686: object, F2737: object, F2779: object, F2956: object, F3043: object, F3502: object, F3504: object, F3532: object, F3534: object, F3610: object, F3612: object, F3640: object, F3642: object, F3748: object, F3750: object, F3887: object, F3894: object, F3898: object, F3908: object, F3913: object, F3914: object, F_balance_velocity_per_month: object
+[2026-06-02 17:59:52] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 17:59:53] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 17:59:53] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 17:59:53] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 17:59:53] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 17:59:53] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 17:59:53] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 17:59:53] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 17:59:53] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 17:59:53] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 17:59:53] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 17:59:54] ERROR [mule_detection:server.py:213] Error compiling AI investigator report: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F59: object, F61: object, F64: object, F109: object, F111: object, F114: object, F115: object, F116: object, F117: object, F120: object, F121: object, F122: object, F123: object, F126: object, F157: object, F158: object, F159: object, F160: object, F161: object, F162: object, F223: object, F224: object, F225: object, F228: object, F229: object, F230: object, F231: object, F234: object, F265: object, F266: object, F267: object, F268: object, F269: object, F270: object, F321: object, F527: object, F531: object, F670: object, F778: object, F844: object, F850: object, F886: object, F994: object, F996: object, F1102: object, F1104: object, F1212: object, F1320: object, F1428: object, F1492: object, F1498: object, F1536: object, F1692: object, F1926: object, F1932: object, F1966: object, F1968: object, F2034: object, F2040: object, F2074: object, F2076: object, F2082: object, F2122: object, F2142: object, F2148: object, F2182: object, F2184: object, F2285: object, F2481: object, F2578: object, F2582: object, F2678: object, F2686: object, F2737: object, F2779: object, F2956: object, F3043: object, F3502: object, F3504: object, F3532: object, F3534: object, F3610: object, F3612: object, F3640: object, F3642: object, F3748: object, F3750: object, F3887: object, F3894: object, F3898: object, F3908: object, F3913: object, F3914: object, F_balance_velocity_per_month: object
+[2026-06-02 18:00:55] INFO [mule_detection:server.py:58] Starting up CyberShield API Server...
+[2026-06-02 18:00:55] INFO [mule_detection:server.py:68] Startup Ingestion: Loading dataset.csv to fit pipeline...
+[2026-06-02 18:01:02] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 18:01:02] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 18:01:02] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 18:01:03] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 18:01:04] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 18:01:04] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 18:01:05] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 18:01:05] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3924)
+[2026-06-02 18:01:08] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:01:08] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3192)
+[2026-06-02 18:01:08] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 18:01:08] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 18:01:08] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 18:01:10] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 18:01:10] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 18:01:10] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3192)
+[2026-06-02 18:01:10] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:01:11] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:01:11] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:01:11] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:01:11] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:01:11] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3229)
+[2026-06-02 18:01:11] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 18:01:11] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 18:01:13] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 18:01:13] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 18:01:13] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 168)
+[2026-06-02 18:01:13] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 18:01:13] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 18:01:14] INFO [mule_detection:pipeline.py:130] Fold 1 Metrics: PR-AUC: 0.6182 | Recall@1%FPR: 0.6875
+[2026-06-02 18:01:14] INFO [mule_detection:pipeline.py:96] Training FOLD 2/5...
+[2026-06-02 18:01:15] INFO [mule_detection:pipeline.py:130] Fold 2 Metrics: PR-AUC: 0.6902 | Recall@1%FPR: 0.7647
+[2026-06-02 18:01:15] INFO [mule_detection:pipeline.py:96] Training FOLD 3/5...
+[2026-06-02 18:01:16] INFO [mule_detection:pipeline.py:130] Fold 3 Metrics: PR-AUC: 0.7397 | Recall@1%FPR: 0.7500
+[2026-06-02 18:01:16] INFO [mule_detection:pipeline.py:96] Training FOLD 4/5...
+[2026-06-02 18:01:18] INFO [mule_detection:pipeline.py:130] Fold 4 Metrics: PR-AUC: 0.9006 | Recall@1%FPR: 1.0000
+[2026-06-02 18:01:18] INFO [mule_detection:pipeline.py:96] Training FOLD 5/5...
+[2026-06-02 18:01:19] INFO [mule_detection:pipeline.py:130] Fold 5 Metrics: PR-AUC: 0.5329 | Recall@1%FPR: 0.8125
+[2026-06-02 18:01:19] INFO [mule_detection:pipeline.py:136] OOF Cross-Validation PR-AUC: 0.7009
+[2026-06-02 18:01:19] INFO [mule_detection:pipeline.py:137] OOF Cross-Validation Recall@1%FPR: 0.7901
+[2026-06-02 18:01:19] INFO [mule_detection:describer.py:24] Successfully initialized SHAP TreeExplainer.
+[2026-06-02 18:01:19] INFO [mule_detection:server.py:102] CyberShield API Pipeline fit successfully! Server is ready.
+[2026-06-02 18:03:03] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:04] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:04] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:04] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:04] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:04] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:04] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:04] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:04] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:04] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:04] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:06] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:07] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:07] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:07] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:07] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:07] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:07] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:07] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:07] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:07] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:07] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:08] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:09] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:09] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:09] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:09] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:09] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:09] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:09] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:09] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:09] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:09] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:09] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:11] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:11] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:11] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:11] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:11] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:11] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:11] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:11] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:11] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:11] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:12] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:13] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:13] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:13] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:13] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:13] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:13] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:13] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:13] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:13] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:13] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:13] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:15] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:15] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:15] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:15] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:15] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:15] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:15] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:15] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:15] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:15] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:16] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:17] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:17] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:17] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:17] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:17] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:17] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:17] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:17] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:17] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:17] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:19] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:21] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:21] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:21] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:21] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:21] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:21] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:21] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:21] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:21] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:21] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:22] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:23] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:23] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:23] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:23] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:23] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:23] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:23] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:23] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:23] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:23] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:24] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:24] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:24] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:24] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:24] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:24] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:24] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:24] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:24] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:24] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:24] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:26] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:27] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:27] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:27] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:27] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:27] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:27] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:27] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:27] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:27] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:27] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:28] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:29] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:29] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:29] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:29] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:29] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:29] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:29] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:29] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:29] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:29] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:29] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:31] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:31] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:31] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:31] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:31] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:31] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:31] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:31] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:31] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:31] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:31] ERROR [mule_detection:server.py:170] Error predicting instance: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F3887: object, F3898: object, F3908: object, F3913: object, F3914: object, F_balance_velocity_per_month: object
+[2026-06-02 18:03:31] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:32] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:32] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:32] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:32] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:32] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:32] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:32] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:32] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:32] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:32] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:32] ERROR [mule_detection:server.py:197] Error generating SHAP explainability: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F3887: object, F3898: object, F3908: object, F3913: object, F3914: object, F_balance_velocity_per_month: object
+[2026-06-02 18:03:33] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:03:34] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:03:34] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:03:34] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:03:34] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:03:34] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:03:34] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:03:34] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:03:34] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:03:34] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:03:34] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:03:34] ERROR [mule_detection:server.py:228] Error compiling AI investigator report: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:F3887: object, F3898: object, F3908: object, F3913: object, F3914: object, F_balance_velocity_per_month: object
+[2026-06-02 18:04:16] INFO [mule_detection:server.py:58] Starting up CyberShield API Server...
+[2026-06-02 18:04:16] INFO [mule_detection:server.py:68] Startup Ingestion: Loading dataset.csv to fit pipeline...
+[2026-06-02 18:04:19] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 18:04:19] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 18:04:19] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 18:04:19] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 18:04:20] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 18:04:20] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 18:04:20] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 18:04:20] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3924)
+[2026-06-02 18:04:21] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:04:21] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3192)
+[2026-06-02 18:04:21] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 18:04:21] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 18:04:21] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 18:04:22] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 18:04:22] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 18:04:22] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3192)
+[2026-06-02 18:04:22] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:04:23] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:04:23] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:04:23] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:04:23] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:04:23] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3229)
+[2026-06-02 18:04:23] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 18:04:23] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 18:04:23] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 18:04:23] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 18:04:23] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 168)
+[2026-06-02 18:04:23] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 18:04:23] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 18:04:24] INFO [mule_detection:pipeline.py:130] Fold 1 Metrics: PR-AUC: 0.6182 | Recall@1%FPR: 0.6875
+[2026-06-02 18:04:24] INFO [mule_detection:pipeline.py:96] Training FOLD 2/5...
+[2026-06-02 18:04:25] INFO [mule_detection:pipeline.py:130] Fold 2 Metrics: PR-AUC: 0.6902 | Recall@1%FPR: 0.7647
+[2026-06-02 18:04:25] INFO [mule_detection:pipeline.py:96] Training FOLD 3/5...
+[2026-06-02 18:04:26] INFO [mule_detection:pipeline.py:130] Fold 3 Metrics: PR-AUC: 0.7397 | Recall@1%FPR: 0.7500
+[2026-06-02 18:04:26] INFO [mule_detection:pipeline.py:96] Training FOLD 4/5...
+[2026-06-02 18:04:26] INFO [mule_detection:pipeline.py:130] Fold 4 Metrics: PR-AUC: 0.9006 | Recall@1%FPR: 1.0000
+[2026-06-02 18:04:26] INFO [mule_detection:pipeline.py:96] Training FOLD 5/5...
+[2026-06-02 18:04:27] INFO [mule_detection:pipeline.py:130] Fold 5 Metrics: PR-AUC: 0.5329 | Recall@1%FPR: 0.8125
+[2026-06-02 18:04:27] INFO [mule_detection:pipeline.py:136] OOF Cross-Validation PR-AUC: 0.7009
+[2026-06-02 18:04:27] INFO [mule_detection:pipeline.py:137] OOF Cross-Validation Recall@1%FPR: 0.7901
+[2026-06-02 18:04:27] INFO [mule_detection:describer.py:24] Successfully initialized SHAP TreeExplainer.
+[2026-06-02 18:04:27] INFO [mule_detection:server.py:102] CyberShield API Pipeline fit successfully! Server is ready.
+[2026-06-02 18:05:37] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:38] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:38] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:38] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:38] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:38] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:38] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:38] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:38] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:38] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:38] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:39] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:39] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:39] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:39] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:39] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:39] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:39] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:39] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:39] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:39] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:39] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:40] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:41] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:41] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:41] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:41] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:41] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:41] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:41] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:41] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:41] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:41] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:41] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:42] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:42] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:42] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:42] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:42] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:42] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:42] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:42] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:42] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:42] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:43] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:44] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:44] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:44] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:44] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:44] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:44] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:44] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:44] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:44] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:44] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:44] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:45] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:45] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:45] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:45] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:45] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:45] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:45] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:45] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:45] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:45] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:46] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:47] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:47] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:47] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:47] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:47] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:47] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:47] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:47] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:47] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:47] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:47] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:48] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:48] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:48] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:48] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:48] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:48] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:48] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:48] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:48] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:48] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:49] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:50] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:50] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:50] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:50] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:50] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:50] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:50] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:50] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:50] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:50] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:50] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:51] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:51] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:51] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:51] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:51] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:51] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:51] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:51] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:51] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:51] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:52] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:53] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:53] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:53] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:53] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:53] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:53] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:53] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:53] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:53] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:53] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:53] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:54] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:54] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:54] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:54] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:54] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:54] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:54] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:54] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:54] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:54] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:55] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:55] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:55] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:55] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:55] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:55] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:55] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:55] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:55] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:55] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:55] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:56] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:57] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:57] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:57] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:57] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:57] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:57] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:57] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:57] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:57] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:57] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:05:57] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:05:58] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:05:58] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:05:58] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:05:58] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:05:58] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:05:58] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:05:58] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:05:58] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:05:58] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:05:58] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:29:01] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 18:29:01] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 18:29:01] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 18:29:02] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 18:29:02] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 18:29:02] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 18:29:03] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 18:29:03] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3924)
+[2026-06-02 18:29:06] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:29:06] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3192)
+[2026-06-02 18:29:06] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 18:29:06] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 18:29:06] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 18:29:07] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 18:29:07] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 18:29:07] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3192)
+[2026-06-02 18:29:07] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:29:07] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:29:07] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:29:07] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:29:07] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:29:07] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3229)
+[2026-06-02 18:29:07] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 18:29:08] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 18:29:08] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 18:29:08] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 18:29:08] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 168)
+[2026-06-02 18:29:08] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 18:29:08] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 18:29:09] INFO [mule_detection:pipeline.py:130] Fold 1 Metrics: PR-AUC: 0.6182 | Recall@1%FPR: 0.6875
+[2026-06-02 18:29:09] INFO [mule_detection:pipeline.py:96] Training FOLD 2/5...
+[2026-06-02 18:29:10] INFO [mule_detection:pipeline.py:130] Fold 2 Metrics: PR-AUC: 0.6902 | Recall@1%FPR: 0.7647
+[2026-06-02 18:29:10] INFO [mule_detection:pipeline.py:96] Training FOLD 3/5...
+[2026-06-02 18:29:10] INFO [mule_detection:pipeline.py:130] Fold 3 Metrics: PR-AUC: 0.7397 | Recall@1%FPR: 0.7500
+[2026-06-02 18:29:10] INFO [mule_detection:pipeline.py:96] Training FOLD 4/5...
+[2026-06-02 18:29:11] INFO [mule_detection:pipeline.py:130] Fold 4 Metrics: PR-AUC: 0.9006 | Recall@1%FPR: 1.0000
+[2026-06-02 18:29:11] INFO [mule_detection:pipeline.py:96] Training FOLD 5/5...
+[2026-06-02 18:29:12] INFO [mule_detection:pipeline.py:130] Fold 5 Metrics: PR-AUC: 0.5329 | Recall@1%FPR: 0.8125
+[2026-06-02 18:29:12] INFO [mule_detection:pipeline.py:136] OOF Cross-Validation PR-AUC: 0.7009
+[2026-06-02 18:29:12] INFO [mule_detection:pipeline.py:137] OOF Cross-Validation Recall@1%FPR: 0.7901
+[2026-06-02 18:29:12] INFO [mule_detection:describer.py:24] Successfully initialized SHAP TreeExplainer.
+[2026-06-02 18:29:29] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:29:31] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:29:31] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:29:31] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:29:31] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:29:31] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:29:31] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:29:31] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:29:31] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:29:31] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:29:31] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:29:48] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (1, 3924)
+[2026-06-02 18:29:50] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:29:50] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (1, 3192)
+[2026-06-02 18:29:50] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (1, 3192)
+[2026-06-02 18:29:50] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:29:50] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:29:50] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:29:50] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:29:50] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:29:50] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (1, 3229)
+[2026-06-02 18:29:50] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (1, 168)
+[2026-06-02 18:31:37] INFO [mule_detection:cleaning.py:33] Fitting DataCleaner on dataset with shape: (9082, 3924)
+[2026-06-02 18:31:37] INFO [mule_detection:cleaning.py:37] Identified 3 target leakage/index columns to drop: ['Unnamed: 0', 'F2230', 'F3912']
+[2026-06-02 18:31:37] INFO [mule_detection:cleaning.py:46] Identified 63 fully empty columns.
+[2026-06-02 18:31:37] INFO [mule_detection:cleaning.py:57] Identified 296 constant (zero-variance) columns to drop.
+[2026-06-02 18:31:38] INFO [mule_detection:cleaning.py:68] Identified 830 columns exceeding null threshold of 80.0%.
+[2026-06-02 18:31:38] INFO [mule_detection:cleaning.py:81] Will create missingness indicator columns for 459 features.
+[2026-06-02 18:31:38] INFO [mule_detection:cleaning.py:95] DataCleaner fit complete.
+[2026-06-02 18:31:38] INFO [mule_detection:cleaning.py:105] Transforming dataset with shape: (9082, 3924)
+[2026-06-02 18:31:39] INFO [mule_detection:cleaning.py:155] Successfully parsed and imputed date column F3888.
+[2026-06-02 18:31:39] INFO [mule_detection:cleaning.py:157] Transformation complete. Cleaned shape: (9082, 3192)
+[2026-06-02 18:31:39] INFO [mule_detection:engineering.py:28] Fitting FeatureEngineer on dataset with shape: (9082, 3192)
+[2026-06-02 18:31:39] INFO [mule_detection:engineering.py:36] Identified categorical columns for encoding: ['F3886', 'F3889', 'F3890', 'F3891', 'F3892', 'F3893']
+[2026-06-02 18:31:39] INFO [mule_detection:engineering.py:46] Fitted OneHotEncoder on categorical columns.
+[2026-06-02 18:31:40] INFO [mule_detection:engineering.py:79] Fitted unsupervised Isolation Forest on legitimate behavior samples.
+[2026-06-02 18:31:40] INFO [mule_detection:engineering.py:82] FeatureEngineer fit complete.
+[2026-06-02 18:31:40] INFO [mule_detection:engineering.py:92] Engineering features on dataset with shape: (9082, 3192)
+[2026-06-02 18:31:40] INFO [mule_detection:engineering.py:101] Engineered 'F_account_age_days' feature.
+[2026-06-02 18:31:40] INFO [mule_detection:engineering.py:114] Engineered 'F_unsupervised_anomaly_score' outlier feature.
+[2026-06-02 18:31:40] INFO [mule_detection:engineering.py:123] Engineered balance-per-month velocity feature.
+[2026-06-02 18:31:40] INFO [mule_detection:engineering.py:129] Engineered balance-per-day velocity feature.
+[2026-06-02 18:31:40] INFO [mule_detection:engineering.py:143] One-Hot encoded categorical columns. Generated 41 binary columns.
+[2026-06-02 18:31:40] INFO [mule_detection:engineering.py:145] Feature engineering complete. Engineered shape: (9082, 3229)
+[2026-06-02 18:31:40] INFO [mule_detection:selection.py:27] Fitting FeatureSelector on X shape: (9082, 3229), y shape: (9082,)
+[2026-06-02 18:31:41] INFO [mule_detection:selection.py:38] 2703 features survived variance threshold of 0.01.
+[2026-06-02 18:31:41] INFO [mule_detection:selection.py:54] SelectKBest selected top 150 features.
+[2026-06-02 18:31:41] INFO [mule_detection:selection.py:61] Total features finalized for modeling: 168 (includes protected and engineered features).
+[2026-06-02 18:31:41] INFO [mule_detection:selection.py:80] Feature selection complete. Out shape: (9082, 168)
+[2026-06-02 18:31:41] INFO [mule_detection:pipeline.py:81] Starting Stratified 5-Fold Cross Validation training.
+[2026-06-02 18:31:41] INFO [mule_detection:pipeline.py:96] Training FOLD 1/5...
+[2026-06-02 18:31:42] INFO [mule_detection:pipeline.py:130] Fold 1 Metrics: PR-AUC: 0.6182 | Recall@1%FPR: 0.6875
+[2026-06-02 18:31:42] INFO [mule_detection:pipeline.py:96] Training FOLD 2/5...
+[2026-06-02 18:31:43] INFO [mule_detection:pipeline.py:130] Fold 2 Metrics: PR-AUC: 0.6902 | Recall@1%FPR: 0.7647
+[2026-06-02 18:31:43] INFO [mule_detection:pipeline.py:96] Training FOLD 3/5...
+[2026-06-02 18:31:43] INFO [mule_detection:pipeline.py:130] Fold 3 Metrics: PR-AUC: 0.7397 | Recall@1%FPR: 0.7500
+[2026-06-02 18:31:43] INFO [mule_detection:pipeline.py:96] Training FOLD 4/5...
+[2026-06-02 18:31:44] INFO [mule_detection:pipeline.py:130] Fold 4 Metrics: PR-AUC: 0.9006 | Recall@1%FPR: 1.0000
+[2026-06-02 18:31:44] INFO [mule_detection:pipeline.py:96] Training FOLD 5/5...
+[2026-06-02 18:31:45] INFO [mule_detection:pipeline.py:130] Fold 5 Metrics: PR-AUC: 0.5329 | Recall@1%FPR: 0.8125
+[2026-06-02 18:31:45] INFO [mule_detection:pipeline.py:136] OOF Cross-Validation PR-AUC: 0.7009
+[2026-06-02 18:31:45] INFO [mule_detection:pipeline.py:137] OOF Cross-Validation Recall@1%FPR: 0.7901
+[2026-06-02 18:31:45] INFO [mule_detection:describer.py:24] Successfully initialized SHAP TreeExplainer.
