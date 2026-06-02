@@ -38,3 +38,9 @@ dataset.csv
 .gemini/
 .tempmediaStorage/
 scratch/
+
+# Runtime Logs
+*.log
+logs/
+project/logs/
+
